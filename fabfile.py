@@ -77,7 +77,6 @@ def install_virtualenv():
 
 
 def install_server():
-    create_ssh_dir()
     install_virtualenv()
     add_bashrc_settings()
     create_virtualenv()

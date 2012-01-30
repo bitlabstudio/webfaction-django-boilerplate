@@ -78,8 +78,14 @@ Django apps on the same Webfaction server.
 
     cp fab_settings.py.sample fab_settings.py
 
+You might want to create a ``.ssh`` directory on your server with permissions
+setup properly:
+
+    fab create_ssh_dir
+    scp $HOME/.ssh/id_rsa.pub username@username.webfactional.com:/home/username/.ssh/
+
 From now on we will use an sophisticated fabric file that will setup your
-local repository and deploy it on your webfaction server:
+local repository and deploy it on your webfaction server.
 
     fab prepare_local_repo
     fab install_server

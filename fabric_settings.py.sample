@@ -1,0 +1,12 @@
+"""Settings for ``fabfile.py``.
+
+Replace these settings with your Webfaction username and your desired project
+name. Usually both will be the same unless you are deploying multiple Django
+apps on the same Webfaction account.
+
+"""
+
+ENV_HOSTS = ['username.webfactional.com', ]
+ENV_USER = 'username'
+VENV_NAME = 'projectname'
+GIT_REPO_NAME = 'projectname.git'

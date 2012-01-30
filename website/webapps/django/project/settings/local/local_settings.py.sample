@@ -1,0 +1,54 @@
+# flake8: noqa
+"""
+Local settings that override standard settings.
+
+You need to make a copy of this file and name it local_settings.py.
+This file will not be under version control and you can adjust the settings
+as you like.
+"""
+from settings.installed_apps import INSTALLED_APPS as DEFAULT_INSTALLED_APPS
+
+DEBUG = True
+SANDBOX = True
+
+# To initialize your database:
+# =============================
+# > mysql -uroot -p
+# > create user projectname identified by 'projectname';
+# > create database labels character set utf8 collate utf8_general_ci;
+# > grant all on projectname.* to projectname;
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'db.sqlite',                     # Or path to database file if using sqlite3.
+        'USER': '',                              # Not used with sqlite3.
+        'PASSWORD': '',                          # Not used with sqlite3.
+        'HOST': '',                              # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                              # Set to empty string for default. Not used with sqlite3.
+    }
+}
+
+# ===============
+# Email settings
+# ===============
+EMAIL_SUBJECT_PREFIX = '[yourproject] '
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'smtp.webfaction.com'
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 25
+
+ADMINS = (
+    ('Yourname', 'info@example.com'),
+)
+
+MANAGERS = ADMINS
+
+INSTALLED_APPS = DEFAULT_INSTALLED_APPS + [
+    'django_extensions',
+]
+
+SECRET_KEY = 'generate your key here: http://www.miniwebtool.com/django-secret-key-generator/'

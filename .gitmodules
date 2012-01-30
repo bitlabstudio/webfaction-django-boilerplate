@@ -1,0 +1,3 @@
+[submodule "website/webapps/django/project/submodules/Skeleton"]
+	path = website/webapps/django/project/submodules/Skeleton
+	url = git://github.com/dhgamache/Skeleton.git

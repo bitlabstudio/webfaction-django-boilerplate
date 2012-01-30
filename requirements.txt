@@ -1,0 +1,15 @@
+# These requirements are needed in order to run the initial fabric script.
+# We also add very useful packages for effective development here.
+# Please note that python-gorun uses inotify which is not available on a mac.
+
+ipython
+ipdb
+fabric
+flake8
+coverage
+django-coverage
+django-extensions
+-e git+https://github.com/Fandekasp/milkman#egg=milkman
+
+# comment out this line if you are on a mac
+-e git+https://github.com/peterbe/python-gorun.git#egg=gorun

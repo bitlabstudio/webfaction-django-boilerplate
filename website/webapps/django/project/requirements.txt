@@ -1,0 +1,13 @@
+django==1.3.1
+django-cms==2.2
+django-filer
+cmsplugin-blog
+south
+easy_thumbnails
+django-simple-captcha
+django-admin-honeypot
+django-brutebuster
+-e git+https://bitmazk@git.bitmazk.webfactional.com/bitmazkcms-utils.git#egg=bitmazkcms_utils
+-e git+git://github.com/bitmazk/bitmazk-contact-form.git#egg=contact_form
+-e git://github.com/bitmazk/django-honeypot-signals#egg=honeypot_signals
+-e git://github.com/bitmazk/django-brutebuster-signals#egg=brutebuster_signals

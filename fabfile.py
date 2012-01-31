@@ -97,3 +97,6 @@ def install_local_repo():
         local('python manage.py syncdb --all --noinput')
         local('python manage.py migrate --fake')
         local('python manage.py loaddata bootstrap_auth.json')
+    with lcd(fab_settings.PROJECT_ROOT):
+        local('git add .')
+        local('git commit -am "Initial commit."')

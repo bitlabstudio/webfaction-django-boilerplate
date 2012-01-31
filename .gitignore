@@ -2,6 +2,7 @@
 *.wpr
 .ropeproject
 .sass-cache
+db.sqlite
 fab_settings.py
 fabric_settings.py
 gorun_settings.py

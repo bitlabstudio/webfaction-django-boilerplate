@@ -88,5 +88,6 @@ def install_local_repo():
     with cd(fab_settings.PROJECT_ROOT):
         local('rm -rf .git')
         local('rm .gitmodules')
+        local('rm -rf website/webapps/django/project/submodules/Skeleton')
         local('git init')
         local('git submodule add git://github.com/dhgamache/Skeleton.git website/webapps/django/project/submodules/Skeleton')

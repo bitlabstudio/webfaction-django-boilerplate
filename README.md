@@ -92,7 +92,16 @@ server and add your key to ``.ssh/authorized_keys``:
     fab create_ssh_dir
 
 From now on we will use an sophisticated fabric file that will setup your
-local repository and deploy it on your webfaction server.
+local repository and deploy it on your webfaction server. First let's prepare
+your local repository. Obviously you cloned this boilerplate repository but
+you don't want our history in your new project's history. So first we will
+delete the ``.git`` folder and ``.gitmodules``, run ``git init``, add
+submodules, copy local settings files  and run ``syncdb`` and ``loaddata``.
+
+After this you should be able to ``cd`` into the ``project`` folder, run
+``./manage.py runserver`` and login to ``/admin-XXXX/`` with username ``admin``
+and password ``test123``:
 
     fab install_local_repo
+
     fab install_server

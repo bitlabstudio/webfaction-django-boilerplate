@@ -94,3 +94,6 @@ def install_local_repo():
     with lcd(fab_settings.DJANGO_PROJECT_ROOT):
         local('cp settings/local/local_settings.py.sample settings/local/local_settings.py')
         local('cp settings/local/gorun_settings.py.sample gorun_settings.py')
+        local('python manage.py syncdb --all --noinput')
+        local('python manage.py migrate --fake')
+        local('python manage.py loaddata bootstrap_auth.json')

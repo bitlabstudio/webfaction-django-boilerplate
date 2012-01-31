@@ -94,5 +94,5 @@ server and add your key to ``.ssh/authorized_keys``:
 From now on we will use an sophisticated fabric file that will setup your
 local repository and deploy it on your webfaction server.
 
-    fab prepare_local_repo
+    fab install_local_repo
     fab install_server

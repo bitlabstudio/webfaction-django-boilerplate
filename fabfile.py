@@ -9,6 +9,7 @@ from __future__ import with_statement
 from fabric.api import (
     cd,
     env,
+    local,
     prefix,
     run,
     settings,
@@ -81,3 +82,11 @@ def install_server():
     add_bashrc_settings()
     create_virtualenv()
     create_git_repo()
+
+
+def install_local_repo():
+    with cd(fab_settings.PROJECT_ROOT):
+        local('rm -rf .git')
+        local('rm .gitmodules')
+        local('git init')
+        local('git submodule add git://github.com/dhgamache/Skeleton.git website/webapps/django/project/submodules/Skeleton')

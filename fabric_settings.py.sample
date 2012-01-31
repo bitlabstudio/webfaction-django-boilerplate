@@ -5,8 +5,12 @@ name. Usually both will be the same unless you are deploying multiple Django
 apps on the same Webfaction account.
 
 """
+import os
 
 ENV_HOSTS = ['username.webfactional.com', ]
 ENV_USER = 'username'
 VENV_NAME = 'projectname'
 GIT_REPO_NAME = 'projectname.git'
+
+
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))

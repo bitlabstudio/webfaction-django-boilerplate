@@ -9,8 +9,8 @@ from __future__ import with_statement
 from fabric.api import (
     cd,
     env,
+    lcd,
     local,
-    prefix,
     run,
     settings,
 )
@@ -85,12 +85,12 @@ def install_server():
 
 
 def install_local_repo():
-    with cd(fab_settings.PROJECT_ROOT):
+    with lcd(fab_settings.PROJECT_ROOT):
         local('rm -rf .git')
         local('rm .gitmodules')
         local('rm -rf website/webapps/django/project/submodules/Skeleton')
         local('git init')
         local('git submodule add git://github.com/dhgamache/Skeleton.git website/webapps/django/project/submodules/Skeleton')
-    with cd(fab_settings.DJANGO_PROJECT_ROOT):
+    with lcd(fab_settings.DJANGO_PROJECT_ROOT):
         local('cp settings/local/local_settings.py.sample settings/local/local_settings.py')
         local('cp settings/local/gorun_settings.py.sample gorun_settings.py')

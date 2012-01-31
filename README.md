@@ -1,10 +1,15 @@
 # Webfaction Django Boilerplate
 
+## DO NOT USE THIS!
+
+This repo is a work in progress. Do not use it as long as this warning message
+is in the readme.
+
 This project will help you to start new
 [Django](https://www.djangoproject.com/) projects on
 [Webfaction](http://www.webfaction.com/) servers.
 
-# Webfaction panel
+## Webfaction panel
 * ``username`` is your webfaction username. You will want to chose a username
   as short as possible since database names have to start with ``username_``
   and are quite limited in lenght.
@@ -49,7 +54,7 @@ This project will help you to start new
 * Got to [email management](https://my.webfaction.com/mailbox/create)
 * Crate a new mailbox (``username_yourproject``).
 
-# Local machine
+## Local machine
 
 First setup your local virtualenv. If you are not familiar with virtualenv and
 virtualenvwrapper we strongly recommend to have a look at those first:
@@ -66,10 +71,12 @@ Next ``cd`` into your desired project folder and clone this repository:
 
 Now you can install some requirements that we need to run fabric. We also added
 some useful tools that will help you to develop and debug your project more
-efficiently:
+efficiently. You should also install the requirements of the actual Django
+project:
 
     cd src
     pip install -r requirements.txt --upgrade
+    pip install -r website/webapps/django/project/requirements.txt --upgrade
 
 Next you need to copy ``fab_settings.py.sample`` and modify it for your needs.
 Basically you just need to modify your webfaction username and your desired
@@ -79,10 +86,10 @@ Django apps on the same Webfaction server.
     cp fab_settings.py.sample fab_settings.py
 
 You might want to create a ``.ssh`` directory on your server with permissions
-setup properly:
+setup properly. Once you have done that, copy your public key, ssh into your
+server and add your key to ``.ssh/authorized_keys``:
 
     fab create_ssh_dir
-    scp $HOME/.ssh/id_rsa.pub username@username.webfactional.com:/home/username/.ssh/
 
 From now on we will use an sophisticated fabric file that will setup your
 local repository and deploy it on your webfaction server.

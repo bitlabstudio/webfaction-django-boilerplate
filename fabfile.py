@@ -81,8 +81,3 @@ def install_server():
     add_bashrc_settings()
     create_virtualenv()
     create_git_repo()
-
-
-def pip_install(package_name, params):
-    with prefix('workon {0}'.format(fab_settings.VENV_NAME)):
-        run('pip install {0} {1}'.format(package_name, params))

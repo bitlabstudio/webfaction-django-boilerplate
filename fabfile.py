@@ -14,6 +14,7 @@ from fabric.api import (
     run,
     settings,
 )
+from fabric.contrib.files import append
 
 import fabric_settings as fab_settings
 
@@ -29,22 +30,13 @@ BASHRC_SETTING4 = 'export PIP_VIRTUALENV_BASE=$WORKON_HOME'
 BASHRC_SETTING5 = 'export PIP_RESPECT_VIRTUALENV=true'
 
 
-def _insert_string_into_file(search_string, file_):
-    """Searches for a string in a file. Inserts string if not found."""
-    with settings(warn_only=True):
-        result = run("grep '{0}' {1}".format(search_string, file_))
-        if result.failed:
-            run("echo '{0}' >> {1}".format(search_string, file_))
-
-
 def add_bashrc_settings():
     with cd('$HOME'):
-        with settings(warn_only=True):
-            _insert_string_into_file(BASHRC_SETTING1, '.bashrc')
-            _insert_string_into_file(BASHRC_SETTING2, '.bashrc')
-            _insert_string_into_file(BASHRC_SETTING3, '.bashrc')
-            _insert_string_into_file(BASHRC_SETTING4, '.bashrc')
-            _insert_string_into_file(BASHRC_SETTING5, '.bashrc')
+        append('.bashrc', BASHRC_SETTING1, partial=True)
+        append('.bashrc', BASHRC_SETTING2, partial=True)
+        append('.bashrc', BASHRC_SETTING3, partial=True)
+        append('.bashrc', BASHRC_SETTING4, partial=True)
+        append('.bashrc', BASHRC_SETTING5, partial=True)
 
 
 def create_git_repo():
@@ -68,6 +60,11 @@ def create_virtualenv():
         run('mkvirtualenv -p python2.7 {0}'.format(fab_settings.VENV_NAME))
 
 
+def install_mercurial():
+    with cd('$HOME'):
+        run('easy_install-2.7 mercurial')
+
+
 def install_virtualenv():
     with cd('$HOME'):
         run('mkdir -p $HOME/lin/python2.7')
@@ -79,6 +76,7 @@ def install_virtualenv():
 
 def install_server():
     install_virtualenv()
+    install_mercurial()
     add_bashrc_settings()
     create_virtualenv()
     create_git_repo()

@@ -9,7 +9,10 @@ This project will help you to start new
 [Django](https://www.djangoproject.com/) projects on
 [Webfaction](http://www.webfaction.com/) servers.
 
-## Webfaction panel
+## Naming conventions
+
+Throughout the instructions we will stick to the following naming conventions:
+
 * ``username`` is your webfaction username. You will want to chose a username
   as short as possible since database names have to start with ``username_``
   and are quite limited in lenght.
@@ -22,6 +25,12 @@ This project will help you to start new
   manageable way. Most likely ``yourproject`` and ``username`` will be the same
   for your first site.
 * ``yourdomain.com`` is the domain that you want to use.
+
+## Webfaction panel
+
+Before you can start to deploy your Django site on your Webfaction server,
+you need to add various settings at your Webfaction control panel:
+
 * First, change your
   [channel password](https://my.webfaction.com/change_password/create)
 * Next, change your
@@ -103,5 +112,4 @@ After this you should be able to ``cd`` into the ``project`` folder, run
 and password ``test123``:
 
     fab install_local_repo
-
     fab install_server

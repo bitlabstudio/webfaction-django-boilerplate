@@ -61,7 +61,7 @@ you need to add various settings at your Webfaction control panel:
 * Go to [database management](https://my.webfaction.com/database/create)
 * Create your database (``username_yourproject``) and note down the password.
 * Got to [email management](https://my.webfaction.com/mailbox/create)
-* Crate a new mailbox (``username_yourproject``).
+* Crate a new mailbox (``username_yourproject``) and note down the password.
 
 ## Local machine
 
@@ -96,16 +96,16 @@ Django apps on the same Webfaction server.
 
 You might want to create a ``.ssh`` directory on your server with permissions
 setup properly. Once you have done that, copy your public key, ssh into your
-server and add your key to ``.ssh/authorized_keys``:
+server and append your key to ``.ssh/authorized_keys``:
 
     fab create_ssh_dir
 
-From now on we will use an sophisticated fabric file that will setup your
-local repository and deploy it on your webfaction server. First let's prepare
-your local repository. Obviously you cloned this boilerplate repository but
-you don't want our history in your new project's history. So first we will
-delete the ``.git`` folder and ``.gitmodules``, run ``git init``, add
-submodules, copy local settings files  and run ``syncdb`` and ``loaddata``.
+From now on we will use a fabric file that will setup your local repository and
+deploy it on your webfaction server. First let's prepare your local repository.
+Obviously you cloned this boilerplate repository but you don't want our history
+in your new project's history. So first we will delete the ``.git`` folder and
+``.gitmodules``, run ``git init``, add submodules, copy local settings files
+and run ``syncdb`` and ``loaddata``.
 
 After this you should be able to ``cd`` into the ``project`` folder, run
 ``./manage.py runserver`` and login to ``/admin-XXXX/`` with username ``admin``

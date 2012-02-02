@@ -30,7 +30,72 @@ BASHRC_SETTING4 = 'export PIP_VIRTUALENV_BASE=$WORKON_HOME'
 BASHRC_SETTING5 = 'export PIP_RESPECT_VIRTUALENV=true'
 
 
-def add_bashrc_settings():
+# ****************************************************************************
+# HIGH LEVEL TASKS
+# ****************************************************************************
+def install_everything():
+    install_local_repo()
+    install_server()
+    local_link_repo_with_remote_repo()
+
+
+def install_local_repo():
+    local_create_new_repo()
+    local_init_django_project()
+    local_initial_commit()
+
+
+def install_server():
+    run_install_virtualenv()
+    run_install_mercurial()
+    run_add_bashrc_settings()
+    run_create_virtualenv()
+    run_create_git_repo()
+
+
+# ****************************************************************************
+# LOCAL TASKS
+# ****************************************************************************
+def local_link_repo_with_remote_repo():
+    with lcd(fab_settings.PROJECT_ROOT):
+        local('git config http.sslVerify false')
+        local('git config http.postBuffer 524288000')
+        local('git remote add origin'
+                ' https://{0}@git.{0}.webfactional.com/{1}'.format(
+                    fab_settings.ENV_USER, fab_settings.GIT_REPO_NAME))
+        local('git push -u origin master')
+
+
+def local_create_new_repo():
+    with lcd(fab_settings.PROJECT_ROOT):
+        local('rm -rf .git')
+        local('rm .gitmodules')
+        local('rm -rf website/webapps/django/project/submodules/Skeleton')
+        local('git init')
+        local('git submodule add git://github.com/dhgamache/Skeleton.git'
+                ' website/webapps/django/project/submodules/Skeleton')
+
+
+def local_init_django_project():
+    with lcd(fab_settings.DJANGO_PROJECT_ROOT):
+        local('cp settings/local/local_settings.py.sample'
+                ' settings/local/local_settings.py')
+        local('cp settings/local/gorun_settings.py.sample gorun_settings.py')
+        local('python manage.py syncdb --all --noinput')
+        local('python manage.py migrate --fake')
+        local('python manage.py loaddata bootstrap_auth.json')
+
+
+def local_initial_commit():
+    with lcd(fab_settings.PROJECT_ROOT):
+        local('git add .')
+        local('git commit -am "Initial commit."')
+
+
+# ****************************************************************************
+# REMOTE TASKS
+# ****************************************************************************
+def run_add_bashrc_settings():
     with cd('$HOME'):
         append('.bashrc', BASHRC_SETTING1, partial=True)
         append('.bashrc', BASHRC_SETTING2, partial=True)
@@ -39,14 +104,14 @@ def add_bashrc_settings():
         append('.bashrc', BASHRC_SETTING5, partial=True)
 
 
-def create_git_repo():
+def run_create_git_repo():
     with cd('$HOME/webapps/git'):
         run('git init --bare ./repos/{0}'.format(fab_settings.GIT_REPO_NAME))
     with cd('$HOME/webapps/git/repos/{0}'.format(fab_settings.GIT_REPO_NAME)):
         run('git config http.receivepack true')
 
 
-def create_ssh_dir():
+def run_create_ssh_dir():
     with cd('$HOME'):
         with settings(warn_only=True):
             run('mkdir .ssh')
@@ -55,46 +120,20 @@ def create_ssh_dir():
             run('chmod 700 .ssh')
 
 
-def create_virtualenv():
+def run_create_virtualenv():
     with cd('$HOME'):
         run('mkvirtualenv -p python2.7 {0}'.format(fab_settings.VENV_NAME))
 
 
-def install_mercurial():
+def run_install_mercurial():
     with cd('$HOME'):
         run('easy_install-2.7 mercurial')
 
 
-def install_virtualenv():
+def run_install_virtualenv():
     with cd('$HOME'):
         run('mkdir -p $HOME/lin/python2.7')
         run('easy_install-2.7 virtualenv')
         run('easy_install-2.7 pip')
         run('pip install virtualenvwrapper')
         run('mkdir -p $HOME/Envs')
-
-
-def install_server():
-    install_virtualenv()
-    install_mercurial()
-    add_bashrc_settings()
-    create_virtualenv()
-    create_git_repo()
-
-
-def install_local_repo():
-    with lcd(fab_settings.PROJECT_ROOT):
-        local('rm -rf .git')
-        local('rm .gitmodules')
-        local('rm -rf website/webapps/django/project/submodules/Skeleton')
-        local('git init')
-        local('git submodule add git://github.com/dhgamache/Skeleton.git website/webapps/django/project/submodules/Skeleton')
-    with lcd(fab_settings.DJANGO_PROJECT_ROOT):
-        local('cp settings/local/local_settings.py.sample settings/local/local_settings.py')
-        local('cp settings/local/gorun_settings.py.sample gorun_settings.py')
-        local('python manage.py syncdb --all --noinput')
-        local('python manage.py migrate --fake')
-        local('python manage.py loaddata bootstrap_auth.json')
-    with lcd(fab_settings.PROJECT_ROOT):
-        local('git add .')
-        local('git commit -am "Initial commit."')

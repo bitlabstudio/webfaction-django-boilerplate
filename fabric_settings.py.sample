@@ -12,6 +12,10 @@ ENV_USER = 'username'
 VENV_NAME = 'projectname'
 GIT_REPO_NAME = 'projectname.git'
 
+DJANGO_APP_NAME = 'projectname_django'
+MYSQL_DB_USER = 'username_projectname'
+MYSQL_DB_PASSWORD = 'XXXXXX'
+
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 DJANGO_PROJECT_ROOT = os.path.realpath(os.path.join(

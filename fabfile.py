@@ -14,7 +14,7 @@ from fabric.api import (
     run,
     settings,
 )
-from fabric.contrib.files import append
+from fabric.contrib.files import append, exists
 
 import fabric_settings as fab_settings
 
@@ -112,12 +112,11 @@ def run_add_bashrc_settings():
 
 
 def run_clone_repo():
-    with cd('$HOME'):
-        run('mkdir src')
+    if not exists('$HOME/src'):
+        run('mkdir $HOME/src')
     with cd('$HOME/src'):
-        run('git clone {0}@git.{0}.webfactional.com/{1} {2}'.format(
-            fab_settings.ENV_USER, fab_settings.GIT_REPO_NAME,
-            fab_settings.PROJECT_NAME))
+        run('git clone $HOME/webapps/git/repos/{0} {1}'.format(
+            fab_settings.GIT_REPO_NAME, fab_settings.PROJECT_NAME))
 
 
 def run_create_git_repo():

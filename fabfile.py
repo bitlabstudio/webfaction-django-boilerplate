@@ -37,6 +37,13 @@ def install_everything():
     install_local_repo()
     install_server()
     local_link_repo_with_remote_repo()
+    first_deployment()
+
+
+def first_deployment():
+    run_clone_repo()
+    # run_install_scripts()
+    # run_prepare_wsgi()
 
 
 def install_local_repo():
@@ -102,6 +109,15 @@ def run_add_bashrc_settings():
         append('.bashrc', BASHRC_SETTING3, partial=True)
         append('.bashrc', BASHRC_SETTING4, partial=True)
         append('.bashrc', BASHRC_SETTING5, partial=True)
+
+
+def run_clone_repo():
+    with cd('$HOME'):
+        run('mkdir src')
+    with cd('$HOME/src'):
+        run('git clone {0}@git.{0}.webfactional.com/{1} {2}'.format(
+            fab_settings.ENV_USER, fab_settings.GIT_REPO_NAME,
+            fab_settings.PROJECT_NAME))
 
 
 def run_create_git_repo():

@@ -10,6 +10,7 @@ import os
 ENV_HOSTS = ['username.webfactional.com', ]
 ENV_USER = 'username'
 VENV_NAME = 'projectname'
+PROJECT_NAME = VENV_NAME
 GIT_REPO_NAME = 'projectname.git'
 
 DJANGO_APP_NAME = 'projectname_django'

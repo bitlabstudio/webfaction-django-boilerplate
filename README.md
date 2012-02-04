@@ -111,5 +111,4 @@ After this you should be able to ``cd`` into the ``project`` folder, run
 ``./manage.py runserver`` and login to ``/admin-XXXX/`` with username ``admin``
 and password ``test123``:
 
-    fab install_local_repo
-    fab install_server
+    fab install_everything

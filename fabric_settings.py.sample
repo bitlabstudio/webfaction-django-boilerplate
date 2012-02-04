@@ -15,6 +15,7 @@ GIT_REPO_NAME = 'projectname.git'
 
 DJANGO_APP_NAME = 'projectname_django'
 MYSQL_DB_USER = 'username_projectname'
+MYSQL_DB_NAME = MYSQL_DB_USER
 MYSQL_DB_PASSWORD = 'XXXXXX'
 
 

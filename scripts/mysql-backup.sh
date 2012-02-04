@@ -1,9 +1,5 @@
 #!/bin/bash
-USERNAME='INSERT_USERNAME'
-DBUSER='INSERT_DBUSER'
-DBNAME='INSERT_DB_NAME'
-DBPASSWORD='INSERT_DB_PASSWORD'
-
+source script_settings.sh
 
 KEEP=30
 BACKUPS=`find /home/$USERNAME/backups -name "mysqldump-*.gz" | wc -l | sed 's/\ //g'`

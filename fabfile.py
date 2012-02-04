@@ -14,7 +14,7 @@ from fabric.api import (
     run,
     settings,
 )
-from fabric.contrib.files import append, exists
+from fabric.contrib.files import append, exists, sed
 
 import fabric_settings as fab_settings
 
@@ -42,7 +42,7 @@ def install_everything():
 
 def first_deployment():
     run_clone_repo()
-    # run_install_scripts()
+    run_install_scripts()
     # run_prepare_wsgi()
 
 
@@ -143,6 +143,29 @@ def run_create_virtualenv():
 def run_install_mercurial():
     with cd('$HOME'):
         run('easy_install-2.7 mercurial')
+
+
+def run_install_scripts():
+    with cd('$HOME/src/{0}/scripts'.format(fab_settings.PROJECT_NAME)):
+        run('git pull origin master')
+        run('cp deploy-website.sh $HOME/bin/deploy-website-{0}.sh'.format(
+            fab_settings.PROJECT_NAME))
+        run('cp mysql-backup.sh $HOME/bin/mysql-backup-{0}.sh'.format(
+            fab_settings.PROJECT_NAME))
+        run('cp restart-apache.sh $HOME/bin/restart-apache-{0}.sh'.format(
+            fab_settings.PROJECT_NAME))
+        run('cp show-memory.sh $HOME/bin/show-memory.sh')
+
+    with cd('$HOME/bin'):
+        sed('script_settings.sh', 'INSERT_USERNAME', fab_settings.ENV_USER)
+        sed('script_settings.sh', 'INSERT_DB_USER', fab_settings.MYSQL_DB_USER)
+        sed('script_settings.sh', 'INSERT_DB_NAME', fab_settings.MYSQL_DB_NAME)
+        sed('script_settings.sh', 'INSERT_DB_PASSWORD',
+            fab_settings.MYSQL_DB_PASSWORD)
+        sed('script_settings.sh', 'INSERT_PROJECT_NAME',
+            fab_settings.PROJECT_NAME)
+        sed('script_settings.sh', 'INSERT_DJANGO_APP_NAME',
+            fab_settings.DJANGO_APP_NAME)
 
 
 def run_install_virtualenv():

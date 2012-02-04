@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 # if the first Argument is not set to 1, syncdb and migrate will be executed
-PROJECTNAME='INSERT_PROJECTNAME'
-DJANGO_APP_NAME='INSERT_DJANGO_APP_NAME'
+source script_settings.sh
 
 cd $HOME/src/$PROJECTNAME
 git pull

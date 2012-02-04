@@ -1,5 +1,5 @@
-#!/bin/sh
-DJANGO_APP='INSERT_DJANGO_APP_NAME'
+#!/bin/bash
+source script_settings.sh
 
-cd ~/webapps/$DJANGO_APP/apache2/bin
+cd ~/webapps/$DJANGO_APP_NAME/apache2/bin
 ./restart

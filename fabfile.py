@@ -120,6 +120,8 @@ def run_clone_repo():
 
 
 def run_create_git_repo():
+    run('rm -rf $HOME/webapps/git/repos/{0}'.format(
+        fab_settings.GIT_REPO_NAME))
     with cd('$HOME/webapps/git'):
         run('git init --bare ./repos/{0}'.format(fab_settings.GIT_REPO_NAME))
     with cd('$HOME/webapps/git/repos/{0}'.format(fab_settings.GIT_REPO_NAME)):
@@ -155,6 +157,7 @@ def run_install_scripts():
         run('cp restart-apache.sh $HOME/bin/restart-apache-{0}.sh'.format(
             fab_settings.PROJECT_NAME))
         run('cp show-memory.sh $HOME/bin/show-memory.sh')
+        run('cp script_settings.sh $HOME/bin/script_settings.sh')
 
     with cd('$HOME/bin'):
         sed('script_settings.sh', 'INSERT_USERNAME', fab_settings.ENV_USER)

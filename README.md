@@ -81,7 +81,8 @@ Next ``cd`` into your desired project folder and clone this repository:
 Now you can install some requirements that we need to run fabric. We also added
 some useful tools that will help you to develop and debug your project more
 efficiently. You should also install the requirements of the actual Django
-project:
+project. Please note that if you are on OSX you should comment out a line in
+the first ``requirements.txt``:
 
     cd src
     pip install -r requirements.txt --upgrade

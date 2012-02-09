@@ -193,7 +193,8 @@ def run_install_virtualenv():
 
 
 def run_prepare_local_settings():
-    with cd('$HOME/webapps/{0}/project/settings/local'):
+    with cd('$HOME/webapps/{0}/project/settings/local'.format(
+        fab_settings.DJANGO_APP_NAME)):
         run('cp local_settings.py.sample local_settings.py')
         sed('local_settings.py', 'backends.sqlite3', 'backends.mysql')
         sed('local_settings.py', 'db.sqlite', fab_settings.MYSQL_DB_NAME)

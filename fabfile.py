@@ -143,7 +143,8 @@ def run_create_ssh_dir():
 def run_create_virtualenv():
     with cd('$HOME'):
         run('rm -rf $HOME/Envs/{0}'.format(fab_settings.VENV_NAME))
-        run('mkvirtualenv -p python2.7 {0}'.format(fab_settings.VENV_NAME))
+        run('mkvirtualenv -p python2.7 --system-site-packages {0}'.format(
+            fab_settings.VENV_NAME))
 
 
 def run_install_mercurial():

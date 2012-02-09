@@ -185,7 +185,7 @@ def run_install_scripts():
 
 def run_install_virtualenv():
     with cd('$HOME'):
-        run('mkdir -p $HOME/lin/python2.7')
+        run('mkdir -p $HOME/lib/python2.7')
         run('easy_install-2.7 virtualenv')
         run('easy_install-2.7 pip')
         run('pip install virtualenvwrapper')

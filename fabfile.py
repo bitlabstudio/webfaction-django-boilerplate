@@ -188,7 +188,8 @@ def run_prepare_wsgi():
         run('rm -rf django')
         run('rm -rf Django*')
     with cd('$HOME/webapps/{0}'.format(fab_settings.DJANGO_APP_NAME)):
-        run('cp $HOME/src/{0}/scripts/myproject.wsgi .')
+        run('cp $HOME/src/{0}/scripts/myproject.wsgi .'.format(
+            fab_settings.PROJECT_NAME))
         sed('myproject.wsgi', 'ENV_USER', fab_settings.ENV_USER)
         sed('myproject.wsgi', 'VENV_NAME', fab_settings.VENV_NAME)
         sed('myproject.wsgi', 'DJANGO_APP_NAME', fab_settings.DJANGO_APP_NAME)

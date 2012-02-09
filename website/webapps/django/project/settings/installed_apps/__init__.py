@@ -15,7 +15,6 @@ INTERNAL_APPS = [
 
 BITMAZK_APPS = [
     'contact_form',
-    'bitmazkcms_utils',
     'brutebuster_signals',
     'honeypot_signals',
 ]

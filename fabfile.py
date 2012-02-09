@@ -43,7 +43,7 @@ def install_everything():
 def first_deployment():
     run_clone_repo()
     run_install_scripts()
-    # run_prepare_wsgi()
+    run_prepare_wsgi()
 
 
 def install_local_repo():
@@ -177,3 +177,7 @@ def run_install_virtualenv():
         run('easy_install-2.7 pip')
         run('pip install virtualenvwrapper')
         run('mkdir -p $HOME/Envs')
+
+
+def run_prepare_wsgi():
+        pass

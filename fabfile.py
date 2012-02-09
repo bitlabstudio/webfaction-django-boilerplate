@@ -152,10 +152,9 @@ def run_install_mercurial():
 
 
 def run_install_requirements():
-    with cd('$HOME/src/{0}/website/webapps/django/project/'.format(
-        fab_settings.PROJECT_NAME)):
-        run('workon {0}'.format(fab_settings.VENV_NAME))
-        run('pip install -r requirements.txt --upgrade')
+    run('workon {0} && pip install -r $HOME/src/{1}/website/webapps/django/'
+        'project/requirements.txt --upgrade'.format(
+            fab_settings.VENV_NAME, fab_settings.PROJECT_NAME))
 
 
 def run_install_scripts():

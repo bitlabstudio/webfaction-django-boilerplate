@@ -45,6 +45,7 @@ def first_deployment():
     run_install_scripts()
     run_prepare_wsgi()
     run_install_requirements()
+    run_prepare_local_settings()
 
 
 def install_local_repo():
@@ -189,6 +190,29 @@ def run_install_virtualenv():
         run('easy_install-2.7 pip')
         run('pip install virtualenvwrapper')
         run('mkdir -p $HOME/Envs')
+
+
+def run_prepare_local_settings():
+    with cd('$HOME/webapps/{0}/project/settings/local'):
+        run('cp local_settings.py.sample local_settings.py')
+        sed('local_settings.py', 'backends.sqlite3', 'backends.mysql')
+        sed('local_settings.py', 'db.sqlite', fab_settings.MYSQL_DB_NAME)
+        sed('local_settings.py', "'USER': ''", "'USER': '{0}'".format(
+            fab_settings.MYSQL_DB_USER))
+        sed('local_settings.py', "'PASSWORD': ''", "'PASSWORD': '{0}'".format(
+            fab_settings.MYSQL_DB_PASSWORD))
+        sed('local_settings.py', '[yourproject]', '[{0}]'.format(
+            fab_settings.PROJECT_NAME))
+        sed('local_settings.py', '^EMAIL_BACKEND', '^#EMAIL_BACKEND')
+        sed('local_settings.py', '^##EMAIL_BACKEND', '^EMAIL_BACKEND')
+        sed('local_settings.py', '#EMAIL_HOST', 'EMAIL_HOST')
+        sed('local_settings.py', "#EMAIL_HOST_USER = ''",
+            "EMAIL_HOST_USER = '{0}'".format(fab_settings.EMAIL_INBOX))
+        sed('local_settings.py', "#EMAIL_HOST_PASSWORD = ''",
+            "EMAIL_HOST_PASSWORD = '{0}'".format(fab_settings.EMAIL_PASSWORD))
+        sed('local_settings.py', 'MEDIA_APP_NAME', fab_settings.MEDIA_APP_NAME)
+        sed('local_settings.py', 'STATIC_APP_NAME',
+            fab_settings.STATIC_APP_NAME)
 
 
 def run_prepare_wsgi():

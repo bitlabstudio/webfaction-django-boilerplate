@@ -4,10 +4,8 @@ import os
 from settings.base_settings import PROJECT_ROOT
 
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'media')
+# Make sure to set MEDIA_ROOT and STATIC_ROOT in your local_settings.py
 MEDIA_URL = '/media/'
-
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'static')
 STATIC_URL = '/static/'
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'

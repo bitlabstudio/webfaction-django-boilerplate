@@ -7,16 +7,26 @@ apps on the same Webfaction account.
 """
 import os
 
+
 ENV_HOSTS = ['username.webfactional.com', ]
 ENV_USER = 'username'
 VENV_NAME = 'projectname'
 PROJECT_NAME = VENV_NAME
 GIT_REPO_NAME = 'projectname.git'
 
+
 DJANGO_APP_NAME = 'projectname_django'
+MEDIA_APP_NAME = 'projectname_media'
+STATIC_APP_NAME = 'projectname_static'
+
+
 MYSQL_DB_USER = 'username_projectname'
 MYSQL_DB_NAME = MYSQL_DB_USER
 MYSQL_DB_PASSWORD = 'XXXXXX'
+
+
+EMAIL_INBOX = 'username_projectname'
+EMAIL_PASSWORD = 'XXXXXX'
 
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))

@@ -6,10 +6,13 @@ You need to make a copy of this file and name it local_settings.py.
 This file will not be under version control and you can adjust the settings
 as you like.
 """
+from settings.base_settings import PROJECT_ROOT
 from settings.installed_apps import INSTALLED_APPS as DEFAULT_INSTALLED_APPS
+
 
 DEBUG = True
 SANDBOX = True
+
 
 # To initialize your database:
 # =============================
@@ -17,6 +20,7 @@ SANDBOX = True
 # > create user projectname identified by 'projectname';
 # > create database labels character set utf8 collate utf8_general_ci;
 # > grant all on projectname.* to projectname;
+
 
 DATABASES = {
     'default': {
@@ -29,26 +33,40 @@ DATABASES = {
     }
 }
 
+
 # ===============
 # Email settings
 # ===============
 EMAIL_SUBJECT_PREFIX = '[yourproject] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+##EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_HOST = 'smtp.webfaction.com'
 #EMAIL_HOST_USER = ''
 #EMAIL_HOST_PASSWORD = ''
 #EMAIL_USE_TLS = True
 #EMAIL_PORT = 25
-
 ADMINS = (
     ('Yourname', 'info@example.com'),
 )
-
 MANAGERS = ADMINS
 
+
+# ==========================
+# Additional installed apps
+# ==========================
 INSTALLED_APPS = DEFAULT_INSTALLED_APPS + [
     'django_extensions',
 ]
 
+
+# ======================
+# Static files settings
+# ======================
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'MEDIA_APP_NAME')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'STATIC_APP_NAME')
+
+
+# ===========
+# Secret key
+# ===========
 SECRET_KEY = 'generate your key here: http://www.miniwebtool.com/django-secret-key-generator/'

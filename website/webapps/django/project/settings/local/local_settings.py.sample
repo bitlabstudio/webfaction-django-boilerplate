@@ -6,6 +6,8 @@ You need to make a copy of this file and name it local_settings.py.
 This file will not be under version control and you can adjust the settings
 as you like.
 """
+import os
+
 from settings.base_settings import PROJECT_ROOT
 from settings.installed_apps import INSTALLED_APPS as DEFAULT_INSTALLED_APPS
 

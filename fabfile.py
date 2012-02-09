@@ -44,6 +44,7 @@ def first_deployment():
     run_clone_repo()
     run_install_scripts()
     run_prepare_wsgi()
+    run_install_requirements()
 
 
 def install_local_repo():
@@ -141,12 +142,19 @@ def run_create_ssh_dir():
 
 def run_create_virtualenv():
     with cd('$HOME'):
+        run('rm -rf $HOME/Envs/{0}'.format(fab_settings.VENV_NAME))
         run('mkvirtualenv -p python2.7 {0}'.format(fab_settings.VENV_NAME))
 
 
 def run_install_mercurial():
     with cd('$HOME'):
         run('easy_install-2.7 mercurial')
+
+
+def run_install_requirements():
+    with cd('$HOME/webapps/{0}/project/'.format(fab_settings.DJANGO_APP_NAME)):
+        run('workon {0}'.format(fab_settings.VENV_NAME))
+        run('pip install -r --upgrade requirements.txt')
 
 
 def run_install_scripts():

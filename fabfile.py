@@ -155,7 +155,7 @@ def run_install_requirements():
     with cd('$HOME/src/{0}/website/webapps/django/project/'.format(
         fab_settings.PROJECT_NAME)):
         run('workon {0}'.format(fab_settings.VENV_NAME))
-        run('pip install -r --upgrade requirements.txt')
+        run('pip install -r requirements.txt --upgrade')
 
 
 def run_install_scripts():

@@ -1,6 +1,7 @@
 #!/bin/bash
 # if the first Argument is not set to 1, syncdb and migrate will be executed
 source script_settings.sh
+source $HOME/Envs/$VENV_NAME/bin/activate
 
 cd $HOME/src/$PROJECTNAME
 git pull

@@ -181,6 +181,8 @@ def run_install_scripts():
             fab_settings.PROJECT_NAME)
         sed('script_settings.sh', 'INSERT_DJANGO_APP_NAME',
             fab_settings.DJANGO_APP_NAME)
+        sed('script_settings.sh', 'INSERT_VENV_NAME',
+            fab_settings.VENV_NAME)
 
 
 def run_install_virtualenv():

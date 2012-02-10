@@ -62,4 +62,4 @@ INSTALLED_APPS = DJANGO_APPS + DJANGO_CMS_APPS + INTERNAL_APPS + EXTERNAL_APPS
 from captcha import *
 from cms import *
 from cmsplugin_blog import *
-# from appname import *
+from contact_form import *

@@ -117,3 +117,8 @@ and password ``test123``:
 ## Webfaction server
 
 * Change secret key
+
+
+## Misc
+
+* Change contact_form.py settings.

@@ -1,0 +1,2 @@
+"""Local Fabric settings."""
+WWW_OPEN = "xdg-open"  # other values: gnome-open, x-www-open, open

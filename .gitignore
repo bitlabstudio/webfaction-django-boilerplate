@@ -7,7 +7,5 @@ fab_settings.py
 fabric_settings.py
 gorun_settings.py
 local_settings.py
-website/webapps/django/project/fabfile/
-website/webapps/django/project/fabfile/fab_settings.py
 website/webapps/static/
 website/webapps/media/

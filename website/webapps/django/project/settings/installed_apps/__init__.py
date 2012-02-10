@@ -10,16 +10,14 @@ import sys
 
 
 INTERNAL_APPS = [
-    'global',
-]
-
-BITMAZK_APPS = [
-    'contact_form',
-    'brutebuster_signals',
-    'honeypot_signals',
+    '_global',
 ]
 
 EXTERNAL_APPS = [
+    'contact_form',
+    'brutebuster_signals',
+    'honeypot_signals',
+
     'south',
     'easy_thumbnails',
     'captcha',
@@ -58,8 +56,7 @@ DJANGO_APPS = [
 ]
 
 TEST_APPS = INTERNAL_APPS
-INSTALLED_APPS = DJANGO_APPS + DJANGO_CMS_APPS + INTERNAL_APPS + \
-                 EXTERNAL_APPS + BITMAZK_APPS
+INSTALLED_APPS = DJANGO_APPS + DJANGO_CMS_APPS + INTERNAL_APPS + EXTERNAL_APPS
 
 # Apps settings
 from captcha import *

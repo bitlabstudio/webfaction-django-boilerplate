@@ -25,12 +25,13 @@ MYSQL_DB_NAME = MYSQL_DB_USER
 MYSQL_DB_PASSWORD = 'XXXXXX'
 
 
+EMAIL_DEFAULT_FROM_EMAIL = 'info@example.com'
 EMAIL_INBOX = 'username_projectname'
 EMAIL_PASSWORD = 'XXXXXX'
 
 
 ADMIN_NAME = 'Your Name'
-ADMIN_EMAIL = 'info@example.com'
+ADMIN_EMAIL = 'admin@example.com'
 
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))

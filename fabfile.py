@@ -209,6 +209,8 @@ def run_prepare_local_settings():
             fab_settings.MYSQL_DB_PASSWORD))
         sed('local_settings.py', 'yourproject', '{0}'.format(
             fab_settings.PROJECT_NAME))
+        sed('local_settings.py', 'FROM_EMAIL = "info@example.com"',
+            'FROM_EMAIL = "{0}"'.format(fab_settings.EMAIL_DEFAULT_FROM_EMAIL))
         sed('local_settings.py', 'EMAIL_BACKEND', '#EMAIL_BACKEND')
         sed('local_settings.py', '##EMAIL_BACKEND', 'EMAIL_BACKEND')
         sed('local_settings.py', '#EMAIL_HOST', 'EMAIL_HOST')

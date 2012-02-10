@@ -39,6 +39,9 @@ DATABASES = {
 # ===============
 # Email settings
 # ===============
+FROM_EMAIL = "info@example.com"
+DEFAULT_FROM_EMAIL = FROM_EMAIL
+SERVER_EMAIL = FROM_EMAIL
 EMAIL_SUBJECT_PREFIX = '[yourproject] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

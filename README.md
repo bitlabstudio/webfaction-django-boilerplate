@@ -114,6 +114,13 @@ and password ``test123``:
 
     fab install_everything
 
+We even went one step further and provided initial fixtures which should give
+you everything you need for a normal website:
+
+    cd website/webapps/django/project
+    fab rebuild
+    ./manage.py runserver
+
 ## Webfaction server
 
 * Change secret key

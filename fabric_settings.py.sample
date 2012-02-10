@@ -29,6 +29,10 @@ EMAIL_INBOX = 'username_projectname'
 EMAIL_PASSWORD = 'XXXXXX'
 
 
+ADMIN_NAME = 'Your Name'
+ADMIN_EMAIL = 'info@example.com'
+
+
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 DJANGO_PROJECT_ROOT = os.path.realpath(os.path.join(
     PROJECT_ROOT, 'website', 'webapps', 'django', 'project'))

@@ -202,18 +202,24 @@ def run_prepare_local_settings():
             fab_settings.MYSQL_DB_USER))
         sed('local_settings.py', '"PASSWORD": ""', '"PASSWORD": "{0}"'.format(
             fab_settings.MYSQL_DB_PASSWORD))
-        sed('local_settings.py', '[yourproject]', '[{0}]'.format(
+        sed('local_settings.py', 'yourproject', '{0}'.format(
             fab_settings.PROJECT_NAME))
-        sed('local_settings.py', '^EMAIL_BACKEND', '^#EMAIL_BACKEND')
-        sed('local_settings.py', '^##EMAIL_BACKEND', '^EMAIL_BACKEND')
+        sed('local_settings.py', 'EMAIL_BACKEND', '#EMAIL_BACKEND')
+        sed('local_settings.py', '##EMAIL_BACKEND', 'EMAIL_BACKEND')
         sed('local_settings.py', '#EMAIL_HOST', 'EMAIL_HOST')
-        sed('local_settings.py', '#EMAIL_HOST_USER = ""',
+        sed('local_settings.py', '#EMAIL_HOST_USER', 'EMAIL_HOST_USER')
+        sed('local_settings.py', 'EMAIL_HOST_USER = ""',
             'EMAIL_HOST_USER = "{0}"'.format(fab_settings.EMAIL_INBOX))
-        sed('local_settings.py', '#EMAIL_HOST_PASSWORD = ""',
+        sed('local_settings.py', '#EMAIL_HOST_PASSWORD', 'EMAIL_HOST_PASSWORD')
+        sed('local_settings.py', 'EMAIL_HOST_PASSWORD = ""',
             'EMAIL_HOST_PASSWORD = "{0}"'.format(fab_settings.EMAIL_PASSWORD))
+        sed('local_settings.py', '#EMAIL_USE_TLS', 'EMAIL_USE_TLS')
+        sed('local_settings.py', '#EMAIL_PORT', 'EMAIL_PORT')
         sed('local_settings.py', 'MEDIA_APP_NAME', fab_settings.MEDIA_APP_NAME)
         sed('local_settings.py', 'STATIC_APP_NAME',
             fab_settings.STATIC_APP_NAME)
+        sed('local_settings.py', 'yourname', fab_settings.ADMIN_NAME)
+        sed('local_settings.py', 'info@example.com', fab_settings.ADMIN_EMAIL)
 
 
 def run_prepare_wsgi():
@@ -222,6 +228,7 @@ def run_prepare_wsgi():
         run('rm -rf django')
         run('rm -rf Django*')
     with cd('$HOME/webapps/{0}'.format(fab_settings.DJANGO_APP_NAME)):
+        run('rm -rf myproject')
         run('cp $HOME/src/{0}/scripts/myproject.wsgi .'.format(
             fab_settings.PROJECT_NAME))
         sed('myproject.wsgi', 'ENV_USER', fab_settings.ENV_USER)

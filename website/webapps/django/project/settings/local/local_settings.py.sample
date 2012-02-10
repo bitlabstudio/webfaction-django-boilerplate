@@ -41,14 +41,14 @@ DATABASES = {
 # ===============
 EMAIL_SUBJECT_PREFIX = '[yourproject] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-##EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_HOST = 'smtp.webfaction.com'
 #EMAIL_HOST_USER = ""
 #EMAIL_HOST_PASSWORD = ""
 #EMAIL_USE_TLS = True
 #EMAIL_PORT = 25
 ADMINS = (
-    ('Yourname', 'info@example.com'),
+    ('yourname', 'info@example.com'),
 )
 MANAGERS = ADMINS
 
@@ -71,4 +71,4 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'STATIC_APP_NAME')
 # ===========
 # Secret key
 # ===========
-SECRET_KEY = 'generate your key here: http://www.miniwebtool.com/django-secret-key-generator/'
+SECRET_KEY = 'generate your secret key here: http://www.miniwebtool.com/django-secret-key-generator/'

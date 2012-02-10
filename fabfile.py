@@ -121,6 +121,9 @@ def run_clone_repo():
     with cd('$HOME/src'):
         run('git clone $HOME/webapps/git/repos/{0} {1}'.format(
             fab_settings.GIT_REPO_NAME, fab_settings.PROJECT_NAME))
+    with cd('$HOME/src/{0}'.format(fab_settings.PROJECT_NAME)):
+        run('git submodule init')
+        run('git submodule update')
 
 
 def run_create_git_repo():

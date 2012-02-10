@@ -113,3 +113,7 @@ After this you should be able to ``cd`` into the ``project`` folder, run
 and password ``test123``:
 
     fab install_everything
+
+## Webfaction server
+
+* Change secret key

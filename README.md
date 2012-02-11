@@ -124,16 +124,39 @@ you everything you need for a normal website:
 
 ## Webfaction server
 
-* Change secret key
+At this point you are able to browse to ``username.webfactional.com`` and see
+the django-cms welcome screen. First you should login at ``/admin-XXXX/``
+with username ``admin`` and password ``test123``  and change your password.
 
+The next thing you should do is ssh into your Webfaction server and change
+the secret key in
+``$HOME/webapps/yourproject_django/project/settings/local/local_settings.py``.
+
+If you want to make use of the ``fab rebuild`` command on your server as well,
+you should run:
+
+    workon yourproject
+    pip install fabric
+    pip install coverage
+    cd $HOME/webapps/yourproject_django/project/
+    fab rebuild
 
 ## Misc
 
-* Change contact_form.py settings.
-* Change analytics code
+In your local project you should change the recepients for the contact form
+app. Usually this should be your customers ``info@yourdomain.com`` address.
+You can find the file at
+``../project/settings/installed_apps/contact_form.py``.
+
+You should also have a look at ``../project/templates/base.html`` and change
+the site name that gets appended to the title. If you are using Google
+Analytics, you should enter your ID, if not, you should delete the analytics
+code snippet.
 
 
 ## TODO
 
 * News text is not displayed
 * Setup cronjobs
+* After install_everything there should be an admin user in the remote DB
+* Ask for admin url number in fabric_settings and set it up

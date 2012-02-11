@@ -1,0 +1,16 @@
+[
+    {
+        "pk": 1,
+        "model": "text.text",
+        "fields": {
+            "body": "<p>Welcome to our awesome homepage.</p><div style=\"display: none;\" class=\"vimiumHUD\"/>"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "text.text",
+        "fields": {
+            "body": "<p>Willkommen auf unserer krassen Heimseite.</p><div style=\"display: none;\" class=\"vimiumHUD\"/>"
+        }
+    }
+]

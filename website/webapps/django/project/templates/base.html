@@ -51,26 +51,33 @@
                         </div>
                     </a>
                 </div>
-                <div id="navigation" class="twelve columns alpha">
+                <div class="navigation eight columns alpha">
                     <ul>
                         {% show_menu %}
                     </ul>
                 </div>
-            </div>
-        </header>
-        <div id="body" role="main">
-            <div class="container">
-                <div class="sixteen columns alpha">
-                    {% block main %}{% endblock %}
+                <div class="four columns alpha">
+                    {% language_chooser %}
                 </div>
             </div>
+        </header>
+        <hr />
+        <div id="body" role="main">
+            {% block main %}
+            <div class="container">
+                <div class="sixteen columns alpha">
+                    {% placeholder "main" %}
+                </div>
+            </div>
+            {% endblock %}
         </div>
+        <hr />
         <footer>
             <div class="container">
                 <div class="eight columns alpha">
                     <p>&copy; 2011 FancyCo Pte. Ltd.</p>
                 </div>
-                <div id="navigationFooter" class="eight columns alpha">
+                <div class="navigation eight columns alpha">
                     <ul>
                         {% show_menu %}
                     </ul>

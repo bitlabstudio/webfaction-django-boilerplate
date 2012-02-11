@@ -28,9 +28,7 @@ EXTERNAL_APPS = [
 DJANGO_CMS_APPS = [
     'cms',
     'cms.plugins.text',
-    'cms.plugins.picture',
     'cms.plugins.link',
-    'cms.plugins.file',
     'cms.plugins.snippet',
     'cms.plugins.googlemap',
     'cms.plugins.inherit',
@@ -38,9 +36,20 @@ DJANGO_CMS_APPS = [
     'menus',
     'sekizai',
 
+    # filer apps
+    'filer',
+    'cmsplugin_filer_file',
+    'cmsplugin_filer_folder',
+    'cmsplugin_filer_image',
+    'cmsplugin_filer_teaser',
+    'cmsplugin_filer_video',
+
+    # cmsplugin_blog dependencies
     'cmsplugin_blog',
-    'simple_translation',
     'djangocms_utils',
+    'simple_translation',
+    'tagging',
+    'missing',
 ]
 
 DJANGO_APPS = [

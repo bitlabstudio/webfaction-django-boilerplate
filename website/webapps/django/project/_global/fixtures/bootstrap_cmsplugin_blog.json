@@ -1,0 +1,70 @@
+[
+    {
+        "pk": 2,
+        "model": "cmsplugin_blog.entry",
+        "fields": {
+            "placeholders": [
+                2
+            ],
+            "tags": "foo",
+            "pub_date": "2012-02-11 11:19:30",
+            "is_published": true
+        }
+    },
+    {
+        "pk": 1,
+        "model": "cmsplugin_blog.entry",
+        "fields": {
+            "placeholders": [
+                1
+            ],
+            "tags": "test",
+            "pub_date": "2012-02-11 10:51:35",
+            "is_published": true
+        }
+    },
+    {
+        "pk": 1,
+        "model": "cmsplugin_blog.entrytitle",
+        "fields": {
+            "entry": 1,
+            "author": 1,
+            "slug": "test",
+            "language": "en",
+            "title": "Test"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "cmsplugin_blog.entrytitle",
+        "fields": {
+            "entry": 1,
+            "author": 1,
+            "slug": "test-deutsch",
+            "language": "de",
+            "title": "Test Deutsch"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "cmsplugin_blog.entrytitle",
+        "fields": {
+            "entry": 2,
+            "author": 1,
+            "slug": "another-test",
+            "language": "en",
+            "title": "Another test"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "cmsplugin_blog.entrytitle",
+        "fields": {
+            "entry": 2,
+            "author": 1,
+            "slug": "ein-weiterer-test",
+            "language": "de",
+            "title": "Ein weiterer Test"
+        }
+    }
+]

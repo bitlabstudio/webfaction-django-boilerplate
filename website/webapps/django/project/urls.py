@@ -23,6 +23,7 @@ if settings.DEBUG is False and settings.SANDBOX is True:
 
 urlpatterns += patterns('',
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin-XXXX/', include(admin.site.urls)),
     url(r'^admin-.+/', include('admin_honeypot.urls')),
     url(r'^', include('cms.urls')),

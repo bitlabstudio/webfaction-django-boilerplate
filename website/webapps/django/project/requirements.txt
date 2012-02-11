@@ -1,13 +1,38 @@
+# ========================
+# Django related packages
+# ========================
 django==1.3.1
 django-extensions
+django-missing
+
+
+# ============================
+# django-cms related packages
+# ============================
 django-cms==2.2
 django-filer
+cmsplugin-filer
 cmsplugin-blog
+
+
+# =========================
+# Important other packages
+# =========================
 south
 easy_thumbnails
+
+
+# ==========================
+# Security related packages
+# ==========================
 django-simple-captcha
 django-admin-honeypot
 django-brutebuster
+
+
+# =================
+# Bitmazk packages
+# =================
 -e git+git://github.com/bitmazk/bitmazk-contact-form.git#egg=contact_form
 -e git://github.com/bitmazk/django-honeypot-signals#egg=honeypot_signals
 -e git://github.com/bitmazk/django-brutebuster-signals#egg=brutebuster_signals

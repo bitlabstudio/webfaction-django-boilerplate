@@ -1,3 +1,10 @@
-#navigation ul li, #navigationFooter ul li {
+.floatLeft {
+  float: left; }
+
+.languageChoser select {
+  width: 100px;
+  height: 2.7em; }
+
+.navigation ul li {
   float: left;
   margin-right: 1em; }

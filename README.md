@@ -121,6 +121,7 @@ you everything you need for a normal website:
     fab rebuild
     ./manage.py runserver
 
+
 ## Webfaction server
 
 * Change secret key
@@ -129,3 +130,9 @@ you everything you need for a normal website:
 ## Misc
 
 * Change contact_form.py settings.
+* Change analytics code
+
+
+## TODO
+
+* News text is not displayed

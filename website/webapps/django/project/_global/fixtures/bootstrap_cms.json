@@ -1,6 +1,78 @@
 [
     {
         "pk": 1,
+        "model": "cms.placeholder",
+        "fields": {
+            "slot": "main",
+            "default_width": null
+        }
+    },
+    {
+        "pk": 2,
+        "model": "cms.placeholder",
+        "fields": {
+            "slot": "main",
+            "default_width": null
+        }
+    },
+    {
+        "pk": 3,
+        "model": "cms.placeholder",
+        "fields": {
+            "slot": "main",
+            "default_width": null
+        }
+    },
+    {
+        "pk": 4,
+        "model": "cms.placeholder",
+        "fields": {
+            "slot": "main",
+            "default_width": null
+        }
+    },
+    {
+        "pk": 5,
+        "model": "cms.placeholder",
+        "fields": {
+            "slot": "main",
+            "default_width": null
+        }
+    },
+    {
+        "pk": 1,
+        "model": "cms.cmsplugin",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "language": "en",
+            "level": 0,
+            "creation_date": "2012-02-11 12:11:57",
+            "lft": 1,
+            "tree_id": 1,
+            "position": 0,
+            "placeholder": 1,
+            "plugin_type": "TextPlugin"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "cms.cmsplugin",
+        "fields": {
+            "rght": 2,
+            "parent": null,
+            "language": "de",
+            "level": 0,
+            "creation_date": "2012-02-11 12:12:13",
+            "lft": 1,
+            "tree_id": 2,
+            "position": 0,
+            "placeholder": 1,
+            "plugin_type": "TextPlugin"
+        }
+    },
+    {
+        "pk": 1,
         "model": "cms.page",
         "fields": {
             "rght": 2,
@@ -16,7 +88,9 @@
             "moderator_state": 0,
             "template": "base.html",
             "tree_id": 1,
-            "placeholders": [],
+            "placeholders": [
+                1
+            ],
             "changed_date": "2012-02-10 19:11:10",
             "limit_visibility_in_menu": null,
             "parent": null,
@@ -47,8 +121,10 @@
             "moderator_state": 0,
             "template": "base.html",
             "tree_id": 2,
-            "placeholders": [],
-            "changed_date": "2012-02-10 19:13:38",
+            "placeholders": [
+                2
+            ],
+            "changed_date": "2012-02-11 12:13:02",
             "limit_visibility_in_menu": null,
             "parent": null,
             "publisher_state": 1,
@@ -154,18 +230,18 @@
         "model": "cms.title",
         "fields": {
             "menu_title": "",
-            "redirect": null,
+            "redirect": "",
             "meta_keywords": "",
             "page_title": "",
             "language": "de",
-            "title": "News",
+            "title": "Neuigkeiten",
             "has_url_overwrite": false,
             "application_urls": "BlogApphook",
             "creation_date": "2012-02-10 19:13:38",
             "page": 2,
-            "path": "news",
+            "path": "neuigkeiten",
             "meta_description": "",
-            "slug": "news"
+            "slug": "neuigkeiten"
         }
     },
     {

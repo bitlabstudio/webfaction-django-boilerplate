@@ -5,7 +5,7 @@ from coverage.misc import CoverageException
 from fabric.api import local, settings
 from fabric.colors import _wrap_with
 
-from settings import TEST_APPS, MEDIA_ROOT, PROJECT_ROOT
+from settings import INSTALLED_APPS, TEST_APPS, MEDIA_ROOT, PROJECT_ROOT
 from fab_settings import WWW_OPEN
 
 
@@ -61,6 +61,14 @@ def coverage(html=1):
         local('{0} coverage_html/index.html'.format(WWW_OPEN))
 
 
+def delete_db():
+    """Drops all tables in the database."""
+    for app in INSTALLED_APPS:
+        app_parts = app.split('.')
+        local('python2.7 ./manage.py sqlclear {0} | '
+              'python2.7 ./manage.py dbshell'.format(app_parts[-1]))
+
+
 def dumpdata():
     """Dumps everything.
 
@@ -99,7 +107,7 @@ def rebuild():
 
 def rebuild_db():
     """Syncdb localhost or remote server."""
-    local('python2.7 manage.py reset_db --router=default --noinput')
+    delete_db()
     local('python2.7 manage.py syncdb --all --noinput')
     local('python2.7 manage.py migrate --fake')
     local('python2.7 manage.py loaddata bootstrap_auth.json')

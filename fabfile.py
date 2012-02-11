@@ -41,11 +41,14 @@ def install_everything():
 
 
 def first_deployment():
+    run_delete_previous_attempts()
     run_clone_repo()
     run_install_scripts()
     run_prepare_wsgi()
     run_install_requirements()
+    run_deploy_website(with_manage_py=False)
     run_prepare_local_settings()
+    run_deploy_website()
 
 
 def install_local_repo():
@@ -69,6 +72,8 @@ def local_link_repo_with_remote_repo():
     with lcd(fab_settings.PROJECT_ROOT):
         local('git config http.sslVerify false')
         local('git config http.postBuffer 524288000')
+        with settings(warn_only=True):
+            local('git remote rm origin')
         local('git remote add origin'
                 ' https://{0}@git.{0}.webfactional.com/{1}'.format(
                     fab_settings.ENV_USER, fab_settings.GIT_REPO_NAME))
@@ -78,7 +83,7 @@ def local_link_repo_with_remote_repo():
 def local_create_new_repo():
     with lcd(fab_settings.PROJECT_ROOT):
         local('rm -rf .git')
-        local('rm .gitmodules')
+        local('rm -f .gitmodules')
         local('rm -rf website/webapps/django/project/submodules/Skeleton')
         local('git init')
         local('git submodule add git://github.com/dhgamache/Skeleton.git'
@@ -151,6 +156,20 @@ def run_create_virtualenv():
         run('rm -rf $HOME/Envs/{0}'.format(fab_settings.VENV_NAME))
         run('mkvirtualenv -p python2.7 --system-site-packages {0}'.format(
             fab_settings.VENV_NAME))
+
+
+def run_delete_previous_attempts():
+    with cd('$HOME/webapps/{0}/'.format(fab_settings.DJANGO_APP_NAME)):
+        run('rm -rf project')
+
+
+def run_deploy_website(with_manage_py=True):
+    args = ' 1'
+    if with_manage_py:
+        args = ''
+
+    run('workon {0} && deploy-website-{1}.sh{2}'.format(fab_settings.VENV_NAME,
+        fab_settings.PROJECT_NAME, args))
 
 
 def run_install_mercurial():

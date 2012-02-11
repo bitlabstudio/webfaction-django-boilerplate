@@ -136,3 +136,4 @@ you everything you need for a normal website:
 ## TODO
 
 * News text is not displayed
+* Setup cronjobs

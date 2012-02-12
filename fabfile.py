@@ -48,7 +48,9 @@ def first_deployment():
     run_install_requirements()
     run_deploy_website(with_manage_py=False)
     run_prepare_local_settings()
+    run_setup_admin_url()
     run_deploy_website()
+    run_loaddata_auth()
 
 
 def install_local_repo():
@@ -63,6 +65,7 @@ def install_server():
     run_add_bashrc_settings()
     run_create_virtualenv()
     run_create_git_repo()
+    run_delete_index_files()
 
 
 # ****************************************************************************
@@ -158,6 +161,13 @@ def run_create_virtualenv():
             fab_settings.VENV_NAME))
 
 
+def run_delete_index_files():
+    run('rm -f $HOME/webapps/{0}/index.html'.format(
+        fab_settings.MEDIA_APP_NAME))
+    run('rm -f $HOME/webapps/{0}/index.html'.format(
+        fab_settings.STATIC_APP_NAME))
+
+
 def run_delete_previous_attempts():
     with cd('$HOME/webapps/{0}/'.format(fab_settings.DJANGO_APP_NAME)):
         run('rm -rf project')
@@ -184,29 +194,39 @@ def run_install_requirements():
 
 
 def run_install_scripts():
+    script_settings_name = 'script-settings-{0}.sh'.format(
+        fab_settings.PROJECT_NAME)
+    deploy_website_name = 'deploy-website-{0}.sh'.format(
+        fab_settings.PROJECT_NAME)
+    mysql_backup_name = 'mysql-backup-{0}.sh'.format(
+        fab_settings.PROJECT_NAME)
+    restart_apache_name = 'restart-apache-{0}.sg'.format(
+        fab_settings.PROJECT_NAME)
     with cd('$HOME/src/{0}/scripts'.format(fab_settings.PROJECT_NAME)):
         run('git pull origin master')
-        run('cp deploy-website.sh $HOME/bin/deploy-website-{0}.sh'.format(
-            fab_settings.PROJECT_NAME))
-        run('cp mysql-backup.sh $HOME/bin/mysql-backup-{0}.sh'.format(
-            fab_settings.PROJECT_NAME))
-        run('cp restart-apache.sh $HOME/bin/restart-apache-{0}.sh'.format(
-            fab_settings.PROJECT_NAME))
+        run('cp deploy-website.sh $HOME/bin/{0}'.format(deploy_website_name))
+        run('cp mysql-backup.sh $HOME/bin/{0}'.format(mysql_backup_name))
+        run('cp restart-apache.sh $HOME/bin/{0}'.format(restart_apache_name))
         run('cp show-memory.sh $HOME/bin/show-memory.sh')
-        run('cp script_settings.sh $HOME/bin/script_settings.sh')
+        run('cp script-settings.sh $HOME/bin/{0}'.format(script_settings_name))
 
     with cd('$HOME/bin'):
-        sed('script_settings.sh', 'INSERT_USERNAME', fab_settings.ENV_USER)
-        sed('script_settings.sh', 'INSERT_DB_USER', fab_settings.MYSQL_DB_USER)
-        sed('script_settings.sh', 'INSERT_DB_NAME', fab_settings.MYSQL_DB_NAME)
-        sed('script_settings.sh', 'INSERT_DB_PASSWORD',
+        sed(script_settings_name, 'INSERT_USERNAME', fab_settings.ENV_USER)
+        sed(script_settings_name, 'INSERT_DB_USER', fab_settings.MYSQL_DB_USER)
+        sed(script_settings_name, 'INSERT_DB_NAME', fab_settings.MYSQL_DB_NAME)
+        sed(script_settings_name, 'INSERT_DB_PASSWORD',
             fab_settings.MYSQL_DB_PASSWORD)
-        sed('script_settings.sh', 'INSERT_PROJECT_NAME',
+        sed(script_settings_name, 'INSERT_PROJECT_NAME',
             fab_settings.PROJECT_NAME)
-        sed('script_settings.sh', 'INSERT_DJANGO_APP_NAME',
+        sed(script_settings_name, 'INSERT_DJANGO_APP_NAME',
             fab_settings.DJANGO_APP_NAME)
-        sed('script_settings.sh', 'INSERT_VENV_NAME',
+        sed(script_settings_name, 'INSERT_VENV_NAME',
             fab_settings.VENV_NAME)
+        sed(deploy_website_name, 'INSERT_PROJECTNAME',
+            fab_settings.PROJECT_NAME)
+        sed(mysql_backup_name, 'INSERT_PROJECTNAME', fab_settings.PROJECT_NAME)
+        sed(restart_apache_name, 'INSERT_PROJECTNAME',
+            fab_settings.PROJECT_NAME)
 
 
 def run_install_virtualenv():
@@ -216,6 +236,12 @@ def run_install_virtualenv():
         run('easy_install-2.7 pip')
         run('pip install virtualenvwrapper')
         run('mkdir -p $HOME/Envs')
+
+
+def run_loaddata_auth():
+    with cd('$HOME/webapps/{0}/project/'.format(fab_settings.DJANGO_APP_NAME)):
+        run('workon {0} && ./manage.py loaddata bootstrap_auth.json'.format(
+            fab_settings.VENV_NAME))
 
 
 def run_prepare_local_settings():
@@ -262,3 +288,8 @@ def run_prepare_wsgi():
         sed('myproject.wsgi', 'ENV_USER', fab_settings.ENV_USER)
         sed('myproject.wsgi', 'VENV_NAME', fab_settings.VENV_NAME)
         sed('myproject.wsgi', 'DJANGO_APP_NAME', fab_settings.DJANGO_APP_NAME)
+
+
+def run_setup_admin_url():
+    with cd('$HOME/webapps/{0}/project/'.format(fab_settings.DJANGO_APP_NAME)):
+        sed('urls.py', 'XXXX', fab_settings.ADMIN_URL)

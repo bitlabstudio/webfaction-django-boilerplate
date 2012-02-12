@@ -158,5 +158,3 @@ code snippet.
 
 * News text is not displayed
 * Setup cronjobs
-* After install_everything there should be an admin user in the remote DB
-* Ask for admin url number in fabric_settings and set it up

@@ -186,7 +186,10 @@ def run_deploy_website(with_manage_py=True):
 def run_install_crontab():
     with cd('$HOME/bin/'):
         run('crontab -l > crontab_tmp')
-        run('cat crontab-{0}.txt >> crontab_tmp')
+        run('cat crontab-{0}.txt >> crontab_tmp'.format(
+            fab_settings.PROJECT_NAME))
+        run('crontab crontab_tmp')
+        run('rm crontab_tmp')
 
 
 def run_install_mercurial():

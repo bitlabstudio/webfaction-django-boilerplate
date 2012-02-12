@@ -157,4 +157,5 @@ code snippet.
 ## TODO
 
 * News text is not displayed
-* Setup cronjobs
+* Add delete_project task
+* Only add cronjobs if not there already

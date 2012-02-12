@@ -1,6 +1,6 @@
 #!/bin/bash
 # if the first Argument is not set to 1, syncdb and migrate will be executed
-source script-settings-INSERT_PROJECTNAME.sh
+source $HOME/bin/script-settings-INSERT_PROJECTNAME.sh
 source $HOME/Envs/$VENV_NAME/bin/activate
 
 cd $HOME/src/$PROJECTNAME

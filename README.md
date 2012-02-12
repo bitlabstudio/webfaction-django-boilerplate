@@ -57,6 +57,8 @@ you need to add various settings at your Webfaction control panel:
   ``www.yourdomain.com``.
 * Go to [database management](https://my.webfaction.com/database/create)
 * Create your database (``username_yourproject``) and note down the password.
+  You should create a PostgreSQL database as the latest MySQL has problems with
+  south migrations of easy_thumbnails.
 * Got to [email management](https://my.webfaction.com/mailbox/create)
 * Crate a new mailbox (``username_yourproject``) and note down the password.
 

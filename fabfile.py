@@ -272,7 +272,8 @@ def run_prepare_local_settings():
     with cd('$HOME/webapps/{0}/project/settings/local'.format(
         fab_settings.DJANGO_APP_NAME)):
         run('cp local_settings.py.sample local_settings.py')
-        sed('local_settings.py', 'backends.sqlite3', 'backends.mysql')
+        sed('local_settings.py', 'backends.sqlite3',
+            'backends.postgresql_psycopg2')
         sed('local_settings.py', 'db.sqlite', fab_settings.MYSQL_DB_NAME)
         sed('local_settings.py', '"USER": ""', '"USER": "{0}"'.format(
             fab_settings.MYSQL_DB_USER))

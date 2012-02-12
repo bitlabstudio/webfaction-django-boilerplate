@@ -1,0 +1,2 @@
+0 2 * * * $HOME/bin/mysql-backup-INSERT_PROJECTNAME.sh
+0 18 * * * $HOME/bin/django-cleanup-INSERT_PROJECTNAME.sh > $HOME/mylogs/cron/cron-INSERT_PROJECTNAME.log 2>&1

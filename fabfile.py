@@ -44,6 +44,7 @@ def first_deployment():
     run_delete_previous_attempts()
     run_clone_repo()
     run_install_scripts()
+    run_install_crontab()
     run_prepare_wsgi()
     run_install_requirements()
     run_deploy_website(with_manage_py=False)
@@ -182,6 +183,12 @@ def run_deploy_website(with_manage_py=True):
         fab_settings.PROJECT_NAME, args))
 
 
+def run_install_crontab():
+    with cd('$HOME/bin/'):
+        run('crontab -l > crontab_tmp')
+        run('cat crontab-{0}.txt >> crontab_tmp')
+
+
 def run_install_mercurial():
     with cd('$HOME'):
         run('easy_install-2.7 mercurial')
@@ -194,21 +201,22 @@ def run_install_requirements():
 
 
 def run_install_scripts():
-    script_settings_name = 'script-settings-{0}.sh'.format(
-        fab_settings.PROJECT_NAME)
-    deploy_website_name = 'deploy-website-{0}.sh'.format(
-        fab_settings.PROJECT_NAME)
-    mysql_backup_name = 'mysql-backup-{0}.sh'.format(
-        fab_settings.PROJECT_NAME)
-    restart_apache_name = 'restart-apache-{0}.sg'.format(
-        fab_settings.PROJECT_NAME)
-    with cd('$HOME/src/{0}/scripts'.format(fab_settings.PROJECT_NAME)):
+    project_name = fab_settings.PROJECT_NAME
+    script_settings_name = 'script-settings-{0}.sh'.format(project_name)
+    deploy_website_name = 'deploy-website-{0}.sh'.format(project_name)
+    mysql_backup_name = 'mysql-backup-{0}.sh'.format(project_name)
+    restart_apache_name = 'restart-apache-{0}.sh'.format(project_name)
+    django_cleanup_name = 'django-cleanup-{0}.sh'.format(project_name)
+    crontab_name = 'crontab-{0}.txt'.format(project_name)
+    with cd('$HOME/src/{0}/scripts'.format(project_name)):
         run('git pull origin master')
         run('cp deploy-website.sh $HOME/bin/{0}'.format(deploy_website_name))
         run('cp mysql-backup.sh $HOME/bin/{0}'.format(mysql_backup_name))
         run('cp restart-apache.sh $HOME/bin/{0}'.format(restart_apache_name))
-        run('cp show-memory.sh $HOME/bin/show-memory.sh')
+        run('cp django-cleanup.sh $HOME/bin/{0}'.format(django_cleanup_name))
         run('cp script-settings.sh $HOME/bin/{0}'.format(script_settings_name))
+        run('cp crontab.txt $HOME/bin/{0}'.format(crontab_name))
+        run('cp show-memory.sh $HOME/bin/show-memory.sh')
 
     with cd('$HOME/bin'):
         sed(script_settings_name, 'INSERT_USERNAME', fab_settings.ENV_USER)
@@ -216,17 +224,15 @@ def run_install_scripts():
         sed(script_settings_name, 'INSERT_DB_NAME', fab_settings.MYSQL_DB_NAME)
         sed(script_settings_name, 'INSERT_DB_PASSWORD',
             fab_settings.MYSQL_DB_PASSWORD)
-        sed(script_settings_name, 'INSERT_PROJECT_NAME',
-            fab_settings.PROJECT_NAME)
+        sed(script_settings_name, 'INSERT_PROJECT_NAME', project_name)
         sed(script_settings_name, 'INSERT_DJANGO_APP_NAME',
             fab_settings.DJANGO_APP_NAME)
-        sed(script_settings_name, 'INSERT_VENV_NAME',
-            fab_settings.VENV_NAME)
-        sed(deploy_website_name, 'INSERT_PROJECTNAME',
-            fab_settings.PROJECT_NAME)
-        sed(mysql_backup_name, 'INSERT_PROJECTNAME', fab_settings.PROJECT_NAME)
-        sed(restart_apache_name, 'INSERT_PROJECTNAME',
-            fab_settings.PROJECT_NAME)
+        sed(script_settings_name, 'INSERT_VENV_NAME', fab_settings.VENV_NAME)
+        sed(deploy_website_name, 'INSERT_PROJECTNAME', project_name)
+        sed(mysql_backup_name, 'INSERT_PROJECTNAME', project_name)
+        sed(restart_apache_name, 'INSERT_PROJECTNAME', project_name)
+        sed(django_cleanup_name, 'INSERT_PROJECTNAME', project_name)
+        sed(crontab_name, 'INSERT_PROJECTNAME', project_name)
 
 
 def run_install_virtualenv():

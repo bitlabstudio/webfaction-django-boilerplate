@@ -8,25 +8,25 @@ apps on the same Webfaction account.
 import os
 
 
-ENV_HOSTS = ['username.webfactional.com', ]
 ENV_USER = 'username'
-VENV_NAME = 'projectname'
-PROJECT_NAME = VENV_NAME
-GIT_REPO_NAME = 'projectname.git'
+ENV_HOSTS = ['{0}.webfactional.com'.format(ENV_USER), ]
+PROJECT_NAME = 'projectname'
+VENV_NAME = PROJECT_NAME
+GIT_REPO_NAME = '{0}.git'.format(PROJECT_NAME)
 
 
-DJANGO_APP_NAME = 'projectname_django'
-MEDIA_APP_NAME = 'projectname_media'
-STATIC_APP_NAME = 'projectname_static'
+DJANGO_APP_NAME = '{0}_django'.format(PROJECT_NAME)
+MEDIA_APP_NAME = '{0}_media'.format(PROJECT_NAME)
+STATIC_APP_NAME = '{0}_static'.format(PROJECT_NAME)
 
 
-MYSQL_DB_USER = 'username_projectname'
+MYSQL_DB_USER = '{0}_{1}'.format(ENV_USER, PROJECT_NAME)
 MYSQL_DB_NAME = MYSQL_DB_USER
 MYSQL_DB_PASSWORD = 'XXXXXX'
 
 
 EMAIL_DEFAULT_FROM_EMAIL = 'info@example.com'
-EMAIL_INBOX = 'username_projectname'
+EMAIL_INBOX = '{0}_{1}'.format(ENV_USER, PROJECT_NAME)
 EMAIL_PASSWORD = 'XXXXXX'
 
 

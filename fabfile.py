@@ -6,6 +6,8 @@ Make sure to setup your ``fabric_settings.py`` first. As a start, just copy
 """
 from __future__ import with_statement
 
+import os
+
 from fabric.api import (
     cd,
     env,
@@ -58,6 +60,7 @@ def install_local_repo():
     local_create_new_repo()
     local_init_django_project()
     local_initial_commit()
+    local_create_fab_settings()
 
 
 def install_server():
@@ -82,6 +85,18 @@ def local_link_repo_with_remote_repo():
                 ' https://{0}@git.{0}.webfactional.com/{1}'.format(
                     fab_settings.ENV_USER, fab_settings.GIT_REPO_NAME))
         local('git push -u origin master')
+
+
+def local_create_fab_settings():
+    fabfile_dir = os.path.join(fab_settings.PROJECT_ROOT, 'website',
+        'webapps', 'django', 'project', 'fabfile')
+    print fabfile_dir
+    with lcd(fabfile_dir):
+        local('cp fab_settings.py.sample fab_settings.py')
+        local("sed -i -r -e 's/INSERT_PROJECT_NAME/{0}/g'"
+              " fab_settings.py".format(fab_settings.PROJECT_NAME))
+        local("sed -i -r -e 's/INSERT_ENV_USER/{0}/g'"
+              " fab_settings.py".format(fab_settings.ENV_USER))
 
 
 def local_create_new_repo():

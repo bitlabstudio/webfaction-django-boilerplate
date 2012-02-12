@@ -1,2 +1,5 @@
 """Local Fabric settings."""
+ENV_USER = 'INSERT_ENV_USER'
+ENV_HOSTS = ['{0}.webfactional.com'.format(ENV_USER), ]
+PROJECT_NAME = 'INSERT_PROJECT_NAME'
 WWW_OPEN = "xdg-open"  # other values: gnome-open, x-www-open, open

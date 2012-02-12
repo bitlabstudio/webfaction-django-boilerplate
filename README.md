@@ -159,3 +159,4 @@ code snippet.
 * News text is not displayed
 * Add delete_project task
 * Only add cronjobs if not there already
+* Make sure django forwards to www

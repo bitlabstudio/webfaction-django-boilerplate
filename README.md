@@ -65,7 +65,7 @@ you need to add various settings at your Webfaction control panel:
 First setup your local virtualenv. If you are not familiar with virtualenv and
 virtualenvwrapper we strongly recommend to have a look at those first:
 
-    mkvirtualenv yourproject -p python2.7
+    mkvirtualenv -p python2.7 yourproject
     workon yourproject
 
 Next ``cd`` into your desired project folder and clone this repository:

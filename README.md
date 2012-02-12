@@ -156,6 +156,9 @@ code snippet.
 
 ## TODO
 
+* ADMIN_URL is not replaced properly
+* Add pg_backup.sh script
+* Let user chose db engine
 * News text is not displayed
 * Add delete_project task
 * Only add cronjobs if not there already

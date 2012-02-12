@@ -50,13 +50,10 @@ you need to add various settings at your Webfaction control panel:
 * Create a new app ``Static/CGI/PHP-5.3``. Call it ``yourproject_www``.
 * Create a new app ``Git`` and enter a password.
 * Go to [website management](https://my.webfaction.com/site/list)
-* Add new site called ``yourproject_www`` and map it to the ``yourproject_www``
-  app. Attach the top level domain of your project to it (the one without
-  ``www``).
 * Add a new site called ``yourproject`` and map ``yourproject_django`` to
   ``/``, ``yourproject_media`` to ``/media`` and ``yourproject_static`` to
   ``/static``.
-* Use the subdomains ``yourproject.wefactional.com`` and
+* Use the subdomains ``yourproject.wefactional.com``, ``yourdomain.com`` and
   ``www.yourdomain.com``.
 * Go to [database management](https://my.webfaction.com/database/create)
 * Create your database (``username_yourproject``) and note down the password.

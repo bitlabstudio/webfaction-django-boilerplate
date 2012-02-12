@@ -75,7 +75,7 @@ Next ``cd`` into your desired project folder and clone this repository:
     cd $HOME/Projects
     mkdir yourproject
     cd yourproject
-    git clone git clone git://github.com/bitmazk/webfaction-django-boilerplate.git src
+    git clone git://github.com/bitmazk/webfaction-django-boilerplate.git src
 
 Now you can install some requirements that we need to run fabric. We also added
 some useful tools that will help you to develop and debug your project more

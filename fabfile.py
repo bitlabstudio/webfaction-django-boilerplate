@@ -238,10 +238,10 @@ def run_install_scripts():
 
     with cd('$HOME/bin'):
         sed(script_settings_name, 'INSERT_USERNAME', fab_settings.ENV_USER)
-        sed(script_settings_name, 'INSERT_DB_USER', fab_settings.MYSQL_DB_USER)
-        sed(script_settings_name, 'INSERT_DB_NAME', fab_settings.MYSQL_DB_NAME)
+        sed(script_settings_name, 'INSERT_DB_USER', fab_settings.DB_USER)
+        sed(script_settings_name, 'INSERT_DB_NAME', fab_settings.DB_NAME)
         sed(script_settings_name, 'INSERT_DB_PASSWORD',
-            fab_settings.MYSQL_DB_PASSWORD)
+            fab_settings.DB_PASSWORD)
         sed(script_settings_name, 'INSERT_PROJECT_NAME', project_name)
         sed(script_settings_name, 'INSERT_DJANGO_APP_NAME',
             fab_settings.DJANGO_APP_NAME)
@@ -274,11 +274,11 @@ def run_prepare_local_settings():
         run('cp local_settings.py.sample local_settings.py')
         sed('local_settings.py', 'backends.sqlite3',
             'backends.postgresql_psycopg2')
-        sed('local_settings.py', 'db.sqlite', fab_settings.MYSQL_DB_NAME)
+        sed('local_settings.py', 'db.sqlite', fab_settings.DB_NAME)
         sed('local_settings.py', '"USER": ""', '"USER": "{0}"'.format(
-            fab_settings.MYSQL_DB_USER))
+            fab_settings.DB_USER))
         sed('local_settings.py', '"PASSWORD": ""', '"PASSWORD": "{0}"'.format(
-            fab_settings.MYSQL_DB_PASSWORD))
+            fab_settings.DB_PASSWORD))
         sed('local_settings.py', 'yourproject', '{0}'.format(
             fab_settings.PROJECT_NAME))
         sed('local_settings.py', 'FROM_EMAIL = "info@example.com"',

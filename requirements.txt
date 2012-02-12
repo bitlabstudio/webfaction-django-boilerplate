@@ -4,8 +4,8 @@
 
 ipython
 ipdb
-#fabric
--e git+git://github.com/fabric/fabric.git#egg=fabric
+fabric
+#-e git+git://github.com/fabric/fabric.git#egg=fabric
 flake8
 coverage
 django-coverage

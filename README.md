@@ -88,9 +88,10 @@ the first ``requirements.txt``:
 Next you need to copy ``fab_settings.py.sample`` and modify it for your needs.
 Basically you just need to modify your webfaction username and your desired
 project name. Usually both will be the same unless you are hosting several
-Django apps on the same Webfaction server.
+Django apps on the same Webfaction server. It also holds some values that will
+be inserted into your server's ``local_settings.py``.
 
-    cp fab_settings.py.sample fab_settings.py
+    cp fabric_settings.py.sample fabric_settings.py
 
 You might want to create a ``.ssh`` directory on your server with permissions
 setup properly. Once you have done that, copy your public key, ssh into your

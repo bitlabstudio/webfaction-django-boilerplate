@@ -12,7 +12,7 @@ cd ~/webapps/$DJANGO_APP_NAME/project
 if [ $1 ]; then
 	:
 else
-	python2.7 manage.py syncdb --migrate
+	python2.7 manage.py syncdb --migrate --noinput
     python2.7 manage.py collectstatic --noinput
     cd ~/webapps/$DJANGO_APP_NAME/apache2/bin
 	./restart

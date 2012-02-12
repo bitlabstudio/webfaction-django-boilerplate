@@ -97,7 +97,7 @@ You might want to create a ``.ssh`` directory on your server with permissions
 setup properly. Once you have done that, copy your public key, ssh into your
 server and append your key to ``.ssh/authorized_keys``:
 
-    fab create_ssh_dir
+    fab run_create_ssh_dir
 
 From now on we will use a fabric file that will setup your local repository and
 deploy it on your webfaction server. First let's prepare your local repository.

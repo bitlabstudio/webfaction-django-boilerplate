@@ -156,8 +156,9 @@ code snippet.
 
 ## TODO
 
-* ADMIN_URL is not replaced properly
-* Add pg_backup.sh script
+* Append .pgpass content or create new pgpass file on server
+* ADMIN_URL is not replaced properly (test this)
+* Add pg_backup.sh script (test this)
 * Let user chose db engine
 * News text is not displayed
 * Add delete_project task

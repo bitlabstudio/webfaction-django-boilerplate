@@ -51,7 +51,6 @@ def first_deployment():
     run_install_requirements()
     run_deploy_website(with_manage_py=False)
     run_prepare_local_settings()
-    run_setup_admin_url()
     run_deploy_website()
     run_loaddata_auth()
 
@@ -59,8 +58,8 @@ def first_deployment():
 def install_local_repo():
     local_create_new_repo()
     local_init_django_project()
-    local_initial_commit()
     local_create_fab_settings()
+    local_initial_commit()
 
 
 def install_server():
@@ -119,7 +118,8 @@ def local_init_django_project():
         local('python manage.py syncdb --all --noinput')
         local('python manage.py migrate --fake')
         local('python manage.py loaddata bootstrap_auth.json')
-
+        local("sed -i -r -e 's/XXXX/{0}/g' urls.py".format(
+            fab_settings.ADMIN_URL))
 
 def local_initial_commit():
     with lcd(fab_settings.PROJECT_ROOT):
@@ -185,8 +185,12 @@ def run_delete_index_files():
 
 
 def run_delete_previous_attempts():
-    with cd('$HOME/webapps/{0}/'.format(fab_settings.DJANGO_APP_NAME)):
-        run('rm -rf project')
+    run('rm -rf $HOME/webapps/{0}/project'.format(
+        fab_settings.DJANGO_APP_NAME))
+    run('rm -rf $HOME/Envs/{0}/'.format(fab_settings.VENV_NAME))
+    run('rm -rf $HOME/src/{0}/'.format(fab_settings.PROJECT_NAME))
+    run('rm -rf $HOME/bin/*{0}*.*'.format(fab_settings.PROJECT_NAME))
+    # TODO remove crontab jobs
 
 
 def run_deploy_website(with_manage_py=True):
@@ -223,6 +227,7 @@ def run_install_scripts():
     script_settings_name = 'script-settings-{0}.sh'.format(project_name)
     deploy_website_name = 'deploy-website-{0}.sh'.format(project_name)
     mysql_backup_name = 'mysql-backup-{0}.sh'.format(project_name)
+    pg_backup_name = 'pg-backup-{0}.sh'.format(project_name)
     restart_apache_name = 'restart-apache-{0}.sh'.format(project_name)
     django_cleanup_name = 'django-cleanup-{0}.sh'.format(project_name)
     crontab_name = 'crontab-{0}.txt'.format(project_name)
@@ -248,9 +253,11 @@ def run_install_scripts():
         sed(script_settings_name, 'INSERT_VENV_NAME', fab_settings.VENV_NAME)
         sed(deploy_website_name, 'INSERT_PROJECTNAME', project_name)
         sed(mysql_backup_name, 'INSERT_PROJECTNAME', project_name)
+        sed(pg_backup_name, 'INSERT_PROJECTNAME', project_name)
         sed(restart_apache_name, 'INSERT_PROJECTNAME', project_name)
         sed(django_cleanup_name, 'INSERT_PROJECTNAME', project_name)
         sed(crontab_name, 'INSERT_PROJECTNAME', project_name)
+        run('rm -f *.bak')
 
 
 def run_install_virtualenv():
@@ -299,6 +306,7 @@ def run_prepare_local_settings():
             fab_settings.STATIC_APP_NAME)
         sed('local_settings.py', 'yourname', fab_settings.ADMIN_NAME)
         sed('local_settings.py', 'info@example.com', fab_settings.ADMIN_EMAIL)
+        run('rm -f *.bak')
 
 
 def run_prepare_wsgi():
@@ -313,8 +321,4 @@ def run_prepare_wsgi():
         sed('myproject.wsgi', 'ENV_USER', fab_settings.ENV_USER)
         sed('myproject.wsgi', 'VENV_NAME', fab_settings.VENV_NAME)
         sed('myproject.wsgi', 'DJANGO_APP_NAME', fab_settings.DJANGO_APP_NAME)
-
-
-def run_setup_admin_url():
-    with cd('$HOME/webapps/{0}/project/'.format(fab_settings.DJANGO_APP_NAME)):
-        sed('urls.py', 'XXXX', fab_settings.ADMIN_URL)
+        run('rm -f *.bak')

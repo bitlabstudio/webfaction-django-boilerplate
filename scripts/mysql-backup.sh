@@ -2,7 +2,7 @@
 source $HOME/bin/script-settings-INSERT_PROJECTNAME.sh
 BACKUPFOLDER='backups_'$PROJECTNAME
 
-mkdir -p $BACKUPFOLDER
+mkdir -p $HOME/$BACKUPFOLDER
 
 KEEP=30
 BACKUPS=`find $HOME/$BACKUPFOLDER -name "mysqldump-*.gz" | wc -l | sed 's/\ //g'`

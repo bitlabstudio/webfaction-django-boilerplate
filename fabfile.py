@@ -44,6 +44,7 @@ def install_everything():
 
 def first_deployment():
     run_delete_previous_attempts()
+    run_create_virtualenv()
     run_clone_repo()
     run_install_scripts()
     run_install_crontab()
@@ -66,7 +67,6 @@ def install_server():
     run_install_virtualenv()
     run_install_mercurial()
     run_add_bashrc_settings()
-    run_create_virtualenv()
     run_create_git_repo()
     run_delete_index_files()
 
@@ -236,6 +236,7 @@ def run_install_scripts():
         run('git pull origin master')
         run('cp deploy-website.sh $HOME/bin/{0}'.format(deploy_website_name))
         run('cp mysql-backup.sh $HOME/bin/{0}'.format(mysql_backup_name))
+        run('cp pg-backup.sh $HOME/bin/{0}'.format(pg_backup_name))
         run('cp restart-apache.sh $HOME/bin/{0}'.format(restart_apache_name))
         run('cp django-cleanup.sh $HOME/bin/{0}'.format(django_cleanup_name))
         run('cp script-settings.sh $HOME/bin/{0}'.format(script_settings_name))

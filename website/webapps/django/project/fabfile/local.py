@@ -5,12 +5,18 @@ from coverage.misc import CoverageException
 from fabric.api import local, settings
 from fabric.colors import _wrap_with
 
-from settings import INSTALLED_APPS, TEST_APPS, MEDIA_ROOT, PROJECT_ROOT
-from fab_settings import WWW_OPEN
+from settings import (
+    DATABASES,
+    INSTALLED_APPS,
+    MEDIA_ROOT,
+    PROJECT_ROOT,
+    TEST_APPS,
+)
+from fabfile import fab_settings
 
 
-green_bg = _wrap_with('42')
-red_bg = _wrap_with('41')
+GREEN_BG = _wrap_with('42')
+RED_BG = _wrap_with('41')
 
 
 def check():
@@ -35,7 +41,7 @@ def coverage(html=1):
              settings_file, ' '.join(TEST_APPS)), capture=not_html)
     except:
         raise CoverageException(
-            red_bg("You have failing tests, run 'fab test' for more details"))
+            RED_BG("You have failing tests, run 'fab test' for more details"))
 
     if not_html:
         global_percentage = int(results.split("\n")[-3].split()[-1][:-1])
@@ -47,7 +53,7 @@ def coverage(html=1):
         errors = []
         for name, percentage in files_percents.iteritems():
             if percentage < 80:
-                errors.append(red_bg(
+                errors.append(RED_BG(
                     'The file {0} is only covered to {1}%'.format(
                         name, percentage)))
         if errors:
@@ -55,18 +61,15 @@ def coverage(html=1):
                 "\nThere isn't enought coverage:\n{0}".format(
                     "\n\t".join(errors)))
         else:
-            print(green_bg('{0}% of the code is covered'.format(
+            print(GREEN_BG('{0}% of the code is covered'.format(
                 global_percentage)))
     else:
-        local('{0} coverage_html/index.html'.format(WWW_OPEN))
+        local('{0} coverage_html/index.html'.format(fab_settings.WWW_OPEN))
 
 
 def delete_db():
-    """Drops all tables in the database."""
-    for app in INSTALLED_APPS:
-        app_parts = app.split('.')
-        local('python2.7 ./manage.py sqlclear {0} | '
-              'python2.7 ./manage.py dbshell'.format(app_parts[-1]))
+    """Deletes all data in the database and runs syncdb."""
+    local('python2.7 ./manage.py flush')
 
 
 def dumpdata():
@@ -78,15 +81,46 @@ def dumpdata():
     """
     local('python2.7 ./manage.py dumpdata --indent 4 --natural auth --exclude auth.permission > _global/fixtures/bootstrap_auth.json')  # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural sites > _global/fixtures/bootstrap_sites.json')  # NOQA
-    local('python2.7 ./manage.py dumpdata --indent 4 --natural cms > _global/fixtures/bootstrap_cms.json') # NOQA
+    local('python2.7 ./manage.py dumpdata --indent 4 --natural cms.placeholder > _global/fixtures/bootstrap_cms.json') # NOQA
+    local('python2.7 ./manage.py dumpdata --indent 4 --natural cms --exclude cms.placeholder > _global/fixtures/bootstrap_cms2.json') # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural text > _global/fixtures/bootstrap_cms_plugins_text.json') # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural cmsplugin_blog > _global/fixtures/bootstrap_cmsplugin_blog.json') # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural tagging > _global/fixtures/bootstrap_tagging.json') # NOQA
 
 
+def export_db():
+    """Exports the database."""
+    db_engine = DATABASES['default']['ENGINE']
+    db_user = DATABASES['default']['USER']
+    db_name = DATABASES['default']['NAME']
+    db_password = DATABASES['default']['PASSWORD']
+    if 'sqlite' in db_engine:
+        print('You are using sqlite3, no need to export anything.')
+    if 'postgre' in db_engine:
+        local('pg_dump -c -U {0} > {1}_psql.sql'.format(db_user, db_name))
+    if 'mysql' in db_engine:
+        local('mysqldump -u{0} -p {1} > {2}_mysql.sql'.format(db_user,
+            db_password, db_name))
+
+
 def flake8():
     """Searches for PEP8 errors in all project files."""
     local("flake8 --statistics .")
+
+
+def import_db():
+    """Imports the database."""
+    db_engine = DATABASES['default']['ENGINE']
+    db_user = DATABASES['default']['USER']
+    db_name = DATABASES['default']['NAME']
+    db_password = DATABASES['default']['PASSWORD']
+    if 'sqlite' in db_engine:
+        print('You are using sqlite3, no need to import anything.')
+    if 'postgre' in db_engine:
+        local('psql -U {0} < {1}_psql.sql'.format(db_user, db_name))
+    if 'mysql' in db_engine:
+        local('mysql -u{0} -p{1} < {2}_mysql.sql'.format(db_user, db_password,
+            db_name))
 
 
 def push():
@@ -113,6 +147,7 @@ def rebuild_db():
     local('python2.7 manage.py loaddata bootstrap_auth.json')
     local('python2.7 manage.py loaddata bootstrap_sites.json')
     local('python2.7 manage.py loaddata bootstrap_cms.json')
+    local('python2.7 manage.py loaddata bootstrap_cms2.json')
     local('python2.7 manage.py loaddata bootstrap_cms_plugins_text.json')
     local('python2.7 manage.py loaddata bootstrap_cmsplugin_blog.json')
     local('python2.7 manage.py loaddata bootstrap_tagging.json')
@@ -143,6 +178,6 @@ def test(apps=' '.join(TEST_APPS), options=None):
     with settings(warn_only=True):
         result = local('%s %s' % (command, apps), capture=False)
     if result.failed:
-        print red_bg('Some tests failed')
+        print RED_BG('Some tests failed')
     else:
-        print green_bg('All tests passed')
+        print GREEN_BG('All tests passed')

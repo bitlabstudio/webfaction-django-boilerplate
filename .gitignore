@@ -1,5 +1,6 @@
 *.pyc
 *.wpr
+*.sql
 .ropeproject
 .sass-cache
 db.sqlite

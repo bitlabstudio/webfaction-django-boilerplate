@@ -232,6 +232,7 @@ def run_install_scripts():
     restart_apache_name = 'restart-apache-{0}.sh'.format(project_name)
     django_cleanup_name = 'django-cleanup-{0}.sh'.format(project_name)
     crontab_name = 'crontab-{0}.txt'.format(project_name)
+    show_memory_name = 'show-memory.sh'
     with cd('$HOME/src/{0}/scripts'.format(project_name)):
         run('git pull origin master')
         run('cp deploy-website.sh $HOME/bin/{0}'.format(deploy_website_name))
@@ -241,7 +242,7 @@ def run_install_scripts():
         run('cp django-cleanup.sh $HOME/bin/{0}'.format(django_cleanup_name))
         run('cp script-settings.sh $HOME/bin/{0}'.format(script_settings_name))
         run('cp crontab.txt $HOME/bin/{0}'.format(crontab_name))
-        run('cp show-memory.sh $HOME/bin/show-memory.sh')
+        run('cp {0} $HOME/bin/{0}'.format(show_memory_name))
 
     with cd('$HOME/bin'):
         sed(script_settings_name, 'INSERT_USERNAME', fab_settings.ENV_USER)
@@ -259,6 +260,7 @@ def run_install_scripts():
         sed(restart_apache_name, 'INSERT_PROJECTNAME', project_name)
         sed(django_cleanup_name, 'INSERT_PROJECTNAME', project_name)
         sed(crontab_name, 'INSERT_PROJECTNAME', project_name)
+        sed(show_memory_name, 'INSERT_PROJECTNAME', project_name)
         run('rm -f *.bak')
 
 

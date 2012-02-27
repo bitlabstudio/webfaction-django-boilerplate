@@ -91,11 +91,8 @@ def dumpdata():
 
 
 def export_db():
-    """Exports the database.
-
-    :param db_type: String representing the database engine.
-    """
-    engine = DATABASES['defailt']['ENGINE']
+    """Exports the database."""
+    engine = DATABASES['default']['ENGINE']
     if 'sqlite' in engine:
         print('You are using sqlite3, no need to export anything.')
     if 'postgre' in engine:
@@ -109,6 +106,13 @@ def export_db():
 def flake8():
     """Searches for PEP8 errors in all project files."""
     local("flake8 --statistics .")
+
+
+def import_db():
+    """Imports the database."""
+    engine = DATABASES['default']['ENGINE']
+    if 'sqlite' in engine:
+        print('You are using sqlite3, no need to import anything.')
 
 
 def push():

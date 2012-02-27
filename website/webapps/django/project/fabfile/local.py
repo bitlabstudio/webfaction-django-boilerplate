@@ -5,7 +5,7 @@ from coverage.misc import CoverageException
 from fabric.api import local, settings
 from fabric.colors import _wrap_with
 
-from project.settings import (
+from settings import (
     DATABASES,
     INSTALLED_APPS,
     MEDIA_ROOT,
@@ -90,15 +90,17 @@ def dumpdata():
 
 def export_db():
     """Exports the database."""
-    engine = DATABASES['default']['ENGINE']
-    if 'sqlite' in engine:
+    db_engine = DATABASES['default']['ENGINE']
+    db_user = DATABASES['default']['USER']
+    db_name = DATABASES['default']['NAME']
+    db_password = DATABASES['default']['PASSWORD']
+    if 'sqlite' in db_engine:
         print('You are using sqlite3, no need to export anything.')
-    if 'postgre' in engine:
-        local('pg_dump -c -U {0}_{1} > {1}_psql.sql'.format(
-            fab_settings.ENV_USER, fab_settings.PROJECT_NAME))
-    if 'mysql' in engine:
-        local('mysqldump -u{0} -p {0}_{1} > {1}_mysql.sql'.format(
-            fab_settings.ENV_USER, fab_settings.PROJECT_NAME))
+    if 'postgre' in db_engine:
+        local('pg_dump -c -U {0} > {1}_psql.sql'.format(db_user, db_name))
+    if 'mysql' in db_engine:
+        local('mysqldump -u{0} -p {1} > {2}_mysql.sql'.format(db_user,
+            db_password, db_name))
 
 
 def flake8():
@@ -108,9 +110,17 @@ def flake8():
 
 def import_db():
     """Imports the database."""
-    engine = DATABASES['default']['ENGINE']
-    if 'sqlite' in engine:
+    db_engine = DATABASES['default']['ENGINE']
+    db_user = DATABASES['default']['USER']
+    db_name = DATABASES['default']['NAME']
+    db_password = DATABASES['default']['PASSWORD']
+    if 'sqlite' in db_engine:
         print('You are using sqlite3, no need to import anything.')
+    if 'postgre' in db_engine:
+        local('psql -U {0} < {1}_psql.sql'.format(db_user, db_name))
+    if 'mysql' in db_engine:
+        local('mysql -u{0} -p{1} < {2}_mysql.sql'.format(db_user, db_password,
+            db_name))
 
 
 def push():

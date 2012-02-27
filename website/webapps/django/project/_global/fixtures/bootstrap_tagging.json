@@ -1,38 +1,38 @@
 [
     {
-        "pk": 1,
-        "model": "tagging.tag",
+        "pk": 1, 
+        "model": "tagging.tag", 
         "fields": {
             "name": "foo"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "tagging.tag",
+        "pk": 2, 
+        "model": "tagging.tag", 
         "fields": {
             "name": "test"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "tagging.taggeditem",
+        "pk": 1, 
+        "model": "tagging.taggeditem", 
         "fields": {
-            "tag": 1,
-            "object_id": 2,
+            "tag": 1, 
+            "object_id": 2, 
             "content_type": [
-                "cmsplugin_blog",
+                "cmsplugin_blog", 
                 "entry"
             ]
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "tagging.taggeditem",
+        "pk": 2, 
+        "model": "tagging.taggeditem", 
         "fields": {
-            "tag": 2,
-            "object_id": 1,
+            "tag": 2, 
+            "object_id": 1, 
             "content_type": [
-                "cmsplugin_blog",
+                "cmsplugin_blog", 
                 "entry"
             ]
         }

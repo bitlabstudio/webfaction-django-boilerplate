@@ -68,11 +68,8 @@ def coverage(html=1):
 
 
 def delete_db():
-    """Drops all tables in the database."""
-    for app in INSTALLED_APPS:
-        app_parts = app.split('.')
-        local('python2.7 ./manage.py sqlclear {0} | '
-              'python2.7 ./manage.py dbshell'.format(app_parts[-1]))
+    """Deletes all data in the database and runs syncdb."""
+    local('python2.7 ./manage.py flush')
 
 
 def dumpdata():
@@ -84,7 +81,8 @@ def dumpdata():
     """
     local('python2.7 ./manage.py dumpdata --indent 4 --natural auth --exclude auth.permission > _global/fixtures/bootstrap_auth.json')  # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural sites > _global/fixtures/bootstrap_sites.json')  # NOQA
-    local('python2.7 ./manage.py dumpdata --indent 4 --natural cms > _global/fixtures/bootstrap_cms.json') # NOQA
+    local('python2.7 ./manage.py dumpdata --indent 4 --natural cms.placeholder > _global/fixtures/bootstrap_cms.json') # NOQA
+    local('python2.7 ./manage.py dumpdata --indent 4 --natural cms --exclude cms.placeholder > _global/fixtures/bootstrap_cms2.json') # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural text > _global/fixtures/bootstrap_cms_plugins_text.json') # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural cmsplugin_blog > _global/fixtures/bootstrap_cmsplugin_blog.json') # NOQA
     local('python2.7 ./manage.py dumpdata --indent 4 --natural tagging > _global/fixtures/bootstrap_tagging.json') # NOQA
@@ -139,6 +137,7 @@ def rebuild_db():
     local('python2.7 manage.py loaddata bootstrap_auth.json')
     local('python2.7 manage.py loaddata bootstrap_sites.json')
     local('python2.7 manage.py loaddata bootstrap_cms.json')
+    local('python2.7 manage.py loaddata bootstrap_cms2.json')
     local('python2.7 manage.py loaddata bootstrap_cms_plugins_text.json')
     local('python2.7 manage.py loaddata bootstrap_cmsplugin_blog.json')
     local('python2.7 manage.py loaddata bootstrap_tagging.json')

@@ -68,7 +68,7 @@ def coverage(html=1):
 
 
 def delete_db():
-    """Deletes all data in the database and runs syncdb."""
+    """Deletes all data in the database."""
     local('python2.7 ./manage.py flush')
 
 

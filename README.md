@@ -160,7 +160,6 @@ code snippet.
 
 * Append .pgpass content or create new pgpass file on server
 * EMAIL_SUBJECT_PREFIX is not replaced properly
-* ADMIN_URL is not replaced properly (test this)
 * Add pg_backup.sh script (test this)
 * Let user chose db engine
 * News text is not displayed

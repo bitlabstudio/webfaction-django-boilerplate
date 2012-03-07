@@ -37,8 +37,8 @@ ADMIN_EMAIL = 'admin@example.com'
 # /admin/ will be a fake URL which acts as a honeypot for login attempts from
 # hackers. The real admin URL will be /admin-XXXX/ where XXXX should be a
 # number that you make up. Any other /admin-XYZ1/ URL will serve as a honeypot
-# well so that it should be impossible for a third party to find out which is
-# the real admin URL.
+# as well so that it should be impossible for a third party to find out which 
+# is the real admin URL.
 ADMIN_URL = 'XXXX'
 
 

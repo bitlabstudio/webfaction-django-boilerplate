@@ -2,12 +2,11 @@
 import os
 
 from coverage.misc import CoverageException
-from fabric.api import local, settings
+from fabric.api import lcd, local, settings
 from fabric.colors import _wrap_with
 
 from settings import (
     DATABASES,
-    INSTALLED_APPS,
     MEDIA_ROOT,
     PROJECT_ROOT,
     TEST_APPS,
@@ -161,6 +160,19 @@ def rebuild_media():
     media_fixtures_path = os.path.join(PROJECT_ROOT,
             'test_media/fixtures/media/*')
     local('cp -rf %s %s' % (media_fixtures_path, MEDIA_ROOT))
+
+
+def replace_media():
+    """Deletes your current media folder and unpacks the downloaded one.
+
+    ATTENTION: All your current media files will be lost!
+    You can download the latest media via ``fab run_download_media``.
+    """
+    with lcd('../../'):
+        local('rm -rf media')
+        local('mkdir media')
+        local('tar -C ./media -xvf {0}_media.tar.bz2'.format(
+            fab_settings.PROJECT_NAME))
 
 
 def test(apps=' '.join(TEST_APPS), options=None):

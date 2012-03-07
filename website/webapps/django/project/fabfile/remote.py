@@ -33,6 +33,15 @@ def run_download_db():
         db_name, db_type, fab_settings.ENV_USER))
 
 
+def run_download_media():
+    """Downloads the latest media files from the server."""
+    with cd('$HOME/webapps/{0}_media/'.format(fab_settings.PROJECT_NAME)):
+        run('tar -cvjf ../../{0}_media.tar.bz2 .'.format(
+            fab_settings.PROJECT_NAME))
+    local('scp {0}@{0}.webfactional.com:/home/{0}/{1}_media.tar.bz2'
+          ' ../../'.format(fab_settings.ENV_USER, fab_settings.PROJECT_NAME))
+
+
 def run_restart_apache():
     with cd('$HOME/'):
         run('restart-apache-{0}.sh'.format(fab_settings.PROJECT_NAME))

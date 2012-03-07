@@ -89,7 +89,6 @@ def local_link_repo_with_remote_repo():
 def local_create_fab_settings():
     fabfile_dir = os.path.join(fab_settings.PROJECT_ROOT, 'website',
         'webapps', 'django', 'project', 'fabfile')
-    print fabfile_dir
     with lcd(fabfile_dir):
         local('cp fab_settings.py.sample fab_settings.py')
         local("sed -i -r -e 's/INSERT_PROJECT_NAME/{0}/g'"
@@ -112,6 +111,12 @@ def local_init_django_project():
     with lcd(fab_settings.DJANGO_PROJECT_ROOT):
         local('cp settings/local/local_settings.py.sample'
                 ' settings/local/local_settings.py')
+        local("sed -i -r -e 's/MEDIA_APP_NAME/{0}/g'"
+              " settings/local/local_settings.py".format(
+                  fab_settings.MEDIA_APP_NAME))
+        local("sed -i -r -e 's/STATIC_APP_NAME/{0}/g'"
+              " settings/local/local_settings.py".format(
+                  fab_settings.STATIC_APP_NAME))
         local('cp fabfile/fab_settings.py.sample'
                 ' fabfile/fab_settings.py')
         local('cp settings/local/gorun_settings.py.sample gorun_settings.py')

@@ -111,12 +111,10 @@ def local_init_django_project():
     with lcd(fab_settings.DJANGO_PROJECT_ROOT):
         local('cp settings/local/local_settings.py.sample'
                 ' settings/local/local_settings.py')
-        local("sed -i -r -e 's/MEDIA_APP_NAME/{0}/g'"
-              " settings/local/local_settings.py".format(
-                  fab_settings.MEDIA_APP_NAME))
-        local("sed -i -r -e 's/STATIC_APP_NAME/{0}/g'"
-              " settings/local/local_settings.py".format(
-                  fab_settings.STATIC_APP_NAME))
+        local("sed -i -r -e 's/MEDIA_APP_NAME/media/g'"
+              " settings/local/local_settings.py")
+        local("sed -i -r -e 's/STATIC_APP_NAME/static/g'"
+              " settings/local/local_settings.py")
         local('cp fabfile/fab_settings.py.sample'
                 ' fabfile/fab_settings.py')
         local('cp settings/local/gorun_settings.py.sample gorun_settings.py')

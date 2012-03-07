@@ -166,3 +166,4 @@ code snippet.
 * Add delete_project task
 * Only add cronjobs if not there already
 * Make sure django forwards to www
+* Bug: Stuff gets appended to .bashrc even if it is already there

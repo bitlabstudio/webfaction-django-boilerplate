@@ -15,7 +15,7 @@ Throughout the instructions we will stick to the following naming conventions:
 
 * ``username`` is your webfaction username. You will want to chose a username
   as short as possible since database names have to start with ``username_``
-  and are quite limited in lenght.
+  and are quite limited in length.
 * ``yourproject`` is the name of your project. You will probably name your
   folder on your local development environment like this. It should be a short
   name as well.
@@ -32,40 +32,42 @@ Before you can start to deploy your Django site on your Webfaction server,
 you need to add various settings at your Webfaction control panel:
 
 * First, change your
-  [channel password](https://my.webfaction.com/change_password/create)
+  [control panel password](https://my.webfaction.com/change_password/create)
 * Next, change your
   [SSH/FTP password](https://my.webfaction.com/change_ssh_password/create)
 * Go to
-  [domains management](https://my.webfaction.com/change_ssh_password/create)
+  [domains management](https://my.webfaction.com/domains)
 * Add the domain ``git.username.webfactional.com``
 * Add the domain ``yourdomain.com`` and ``www.yourdomain.com``
 * Go to [applications management](https://my.webfaction.com/app_/list)
-* Create a new app ``Django X.X.X (mod_wsgi 3.3/Python 2.7)``. Call it
+* Create a new ``Django`` app ``Django X.X.X (mod_wsgi 3.3/Python 2.7)``. Call it
 * ``yourproject_django``. Just select the latest release. It doesn't really
   matter because we will use a virtualenv anyways.
-* Create a new app ``Static only (no .htaccess)``. Call it
+* Create a new ``Static`` app ``Static only (no .htaccess)``. Call it
   ``yourproject_media`` and enable ``expires max``.
-* Create a new app ``Static only (no .htaccess)``. Call it
+* Create a new ``Static`` app ``Static only (no .htaccess)``. Call it
   ``yourproject_static`` and enable ``expires max``.
 * Create a new app ``Static/CGI/PHP-5.3``. Call it ``yourproject_www``.
-* Create a new app ``Git`` and enter a password.
+* Create a new app ``Git``. Call it ``git`` and enter a password.
 * Go to [website management](https://my.webfaction.com/site/list)
 * Add a new site called ``yourproject`` and map ``yourproject_django`` to
   ``/``, ``yourproject_media`` to ``/media`` and ``yourproject_static`` to
   ``/static``.
-* Use the subdomains ``yourproject.wefactional.com``, ``yourdomain.com`` and
+* Use the subdomains ``username.wefactional.com``, ``yourdomain.com`` and
   ``www.yourdomain.com``.
 * Go to [database management](https://my.webfaction.com/database/create)
 * Create your database (``username_yourproject``) and note down the password.
   You should create a PostgreSQL database as the latest MySQL has problems with
   south migrations of easy_thumbnails.
-* Got to [email management](https://my.webfaction.com/mailbox/create)
+* Got to [email management](https://my.webfaction.com/mailboxes)
 * Crate a new mailbox (``username_yourproject``) and note down the password.
 
 ## Local machine
 
-First setup your local virtualenv. If you are not familiar with virtualenv and
-virtualenvwrapper we strongly recommend to have a look at those first:
+First setup your local virtualenv. If you are not familiar with
+[virtualenv](http://pypi.python.org/pypi/virtualenv) and
+[virtualenvwrapper](http://www.doughellmann.com/projects/virtualenvwrapper/)
+we strongly recommend to have a look at those first:
 
     mkvirtualenv -p python2.7 yourproject
     workon yourproject

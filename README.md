@@ -58,7 +58,7 @@ you need to add various settings at your Webfaction control panel:
 * Go to [database management](https://my.webfaction.com/database/create)
 * Create your database (``username_yourproject``) and note down the password.
   You should create a PostgreSQL database as the latest MySQL has problems with
-  south migrations of easy_thumbnails.
+  south migrations of ``easy_thumbnails``.
 * Got to [email management](https://my.webfaction.com/mailboxes)
 * Crate a new mailbox (``username_yourproject``) and note down the password.
 
@@ -159,11 +159,11 @@ code snippet.
 ## TODO
 
 * Append .pgpass content or create new pgpass file on server
-* EMAIL_SUBJECT_PREFIX is not replaced properly
-* Add pg_backup.sh script (test this)
+* ``EMAIL_SUBJECT_PREFIX`` is not replaced properly
+* Add ``pg_backup.sh`` script (test this)
 * Let user chose db engine
 * News text is not displayed
-* Add delete_project task
+* Add ``delete_project`` task
 * Only add cronjobs if not there already
 * Make sure django forwards to www
 * Bug: Stuff gets appended to .bashrc even if it is already there

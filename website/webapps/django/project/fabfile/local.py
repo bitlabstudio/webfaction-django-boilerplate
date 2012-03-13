@@ -98,7 +98,7 @@ def export_db():
     if 'postgre' in db_engine:
         local('pg_dump -c -U {0} > {1}_psql.sql'.format(db_user, db_name))
     if 'mysql' in db_engine:
-        local('mysqldump -u{0} -p {1} > {2}_mysql.sql'.format(db_user,
+        local('mysqldump -u{0} -p {1} {2} > {2}_mysql.sql'.format(db_user,
             db_password, db_name))
 
 
@@ -118,8 +118,8 @@ def import_db():
     if 'postgre' in db_engine:
         local('psql -U {0} < {1}_psql.sql'.format(db_user, db_name))
     if 'mysql' in db_engine:
-        local('mysql -u{0} -p{1} < {2}_mysql.sql'.format(db_user, db_password,
-            db_name))
+        local('mysql -u{0} -p{1} {2} < {2}_mysql.sql'.format(db_user,
+            db_password, db_name))
 
 
 def push():

@@ -143,6 +143,19 @@ you should run:
     cd $HOME/webapps/yourproject_django/project/
     fab rebuild
 
+This setup assumes that you are deploying a multilingual project, so you would
+want to create your first translation catalogues now:
+
+    cd $HOME/webapps/yourproject_django/project/
+    workon yourproject
+    ./manage.py makemessages -l ch_ZN
+
+If you don't intend to use i18n, you can remove the scheduled backups from
+crontab:
+
+    crontab -e
+    # remove the line about locale-backup.sh
+
 ## Misc
 
 In your local project you should change the recepients for the contact form

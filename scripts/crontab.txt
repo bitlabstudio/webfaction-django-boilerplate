@@ -1,2 +1,3 @@
 0 2 * * * $HOME/bin/pg-backup-INSERT_PROJECTNAME.sh > $HOME/mylogs/cron/pg-backup-INSERT_PROJECTNAME.log 2>&1
+0 2 * * * $HOME/bin/locale-backup-INSERT_PROJECTNAME.sh > $HOME/mylogs/cron/locale-backup-INSERT_PROJECTNAME.log 2>&1
 0 18 * * * $HOME/bin/django-cleanup-INSERT_PROJECTNAME.sh > $HOME/mylogs/cron/django-cleanup-INSERT_PROJECTNAME.log 2>&1

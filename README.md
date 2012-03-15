@@ -171,6 +171,7 @@ code snippet.
 
 ## TODO
 
+* Document what gets changed and how to revert in case of failure
 * Add ``pg_backup.sh`` script (test this)
 * News text is not displayed
 * Add ``delete_project`` task

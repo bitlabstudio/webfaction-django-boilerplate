@@ -26,5 +26,6 @@ urlpatterns += patterns('',
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin-XXXX/', include(admin.site.urls)),
     url(r'^admin-.+/', include('admin_honeypot.urls')),
+    url(r'^rosetta/', include('rosetta.urls')),
     url(r'^', include('cms.urls')),
 )

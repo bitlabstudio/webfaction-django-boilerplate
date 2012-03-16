@@ -8,5 +8,6 @@ fab_settings.py
 fabric_settings.py
 gorun_settings.py
 local_settings.py
+locale
 website/webapps/static/
 website/webapps/media/

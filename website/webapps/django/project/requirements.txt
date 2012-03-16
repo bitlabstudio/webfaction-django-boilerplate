@@ -5,6 +5,8 @@ django==1.3.1
 django-extensions
 django-missing
 django-rosetta
+-e hg+https://bitbucket.org/ubernostrum/django-registration#egg=registration
+-e git://github.com/bitmazk/django-registration-email.git#egg=registration_email
 
 
 # ============================

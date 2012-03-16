@@ -27,5 +27,6 @@ urlpatterns += patterns('',
     url(r'^admin-XXXX/', include(admin.site.urls)),
     url(r'^admin-.+/', include('admin_honeypot.urls')),
     url(r'^rosetta/', include('rosetta.urls')),
+    url(r'^accounts/', include('registration_email.backends.default.urls')),
     url(r'^', include('cms.urls')),
 )

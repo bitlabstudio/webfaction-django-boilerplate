@@ -50,6 +50,10 @@ DJANGO_CMS_APPS = [
     'simple_translation',
     'tagging',
     'missing',
+
+    # registration apps
+    'registration',
+    'registration_email',
 ]
 
 DJANGO_APPS = [

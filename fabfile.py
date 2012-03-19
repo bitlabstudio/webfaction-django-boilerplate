@@ -208,6 +208,7 @@ def run_delete_previous_attempts():
     run('rm -rf $HOME/src/{0}/'.format(PROJECT_NAME))
     run('rm -rf $HOME/bin/*{0}*.*'.format(PROJECT_NAME))
     with cd('$HOME'):
+        run('touch .pgpass')
         run("sed '/{0}/d' .pgpass > .pgpass_tmp".format(fab_settings.DB_NAME))
         run('mv .pgpass_tmp .pgpass')
     # TODO remove crontab jobs

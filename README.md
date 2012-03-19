@@ -172,6 +172,7 @@ code snippet.
 ## TODO
 
 * Document what gets changed and how to revert in case of failure
+* fab rebuild does not work because there is no test_media
 * Why is there a ``fabfile_settings.py-r`` and ``urls.py-r`` after install everything?
 * Add ``pg_backup.sh`` script (test this)
 * News text is not displayed

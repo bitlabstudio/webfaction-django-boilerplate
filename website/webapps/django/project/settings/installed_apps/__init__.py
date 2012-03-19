@@ -76,3 +76,4 @@ from captcha import *
 from cms import *
 from cmsplugin_blog import *
 from contact_form import *
+from registration_email import *

@@ -241,6 +241,7 @@ def run_install_mercurial():
 def run_install_pgpass():
     with cd('$HOME'):
         run('touch .pgpass')
+        run('chmod 0600 .pgpass')
         if not contains('.pgpass', fab_settings.DB_NAME):
             run('cat {0} > .pgpass'.format(FILE_PGPASS))
         run('rm {0}'.format(FILE_PGPASS))

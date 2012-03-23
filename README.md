@@ -136,6 +136,7 @@ clone your repo into the folder ``/src``, install the ``requirements.txt`` and
 do a first deployment, which will run ``syncdb``, ``migrate``, ``collectstatic`` and
 ``makemessages``. And for all this goodness you only need one command:
 
+    # The task will only halt once and ask for your git password
     fab install_everything
 
 We even went one step further and provided initial fixtures which should give
@@ -203,3 +204,4 @@ code snippet.
 * Make sure django forwards to www
 * Bug: Stuff gets appended to .bashrc even if it is already there
 * Autogenerate secret key
+* Use ssh for git authentication

@@ -1,9 +1,16 @@
 # Webfaction Django Boilerplate
 
-## DO NOT USE THIS!
+## Use it, if you know what you are doing
 
-This repo is a work in progress. Do not use it as long as this warning message
-is in the readme.
+This boilerplate has been tested with a fresh Webfaction server on March 23 2012.
+It worked without any issues. However, if you use it and ``fab install_everything``
+crashes you will have read the fabric error message carefully, think hard about what
+might have gone wrong, probably fix the fabfile (and open an issue here) and try again.
+The fab task is setup in such a way that it deletes previous failed attempts on the
+server so that it can be run over and over again. Unfortunately there might be some 
+TODOs left (check the TODO section at the bottom of this file), for example if you
+run the fab task again, you will end up having the crontabs twice. I will try to fix
+this ASAP.
 
 This project will help you to start new
 [Django](https://www.djangoproject.com/) projects on

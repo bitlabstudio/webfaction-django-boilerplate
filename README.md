@@ -53,8 +53,11 @@ you need to add various settings at your Webfaction control panel:
 * Add a new site called ``yourproject`` and map ``yourproject_django`` to
   ``/``, ``yourproject_media`` to ``/media`` and ``yourproject_static`` to
   ``/static``.
-* Use the subdomains ``username.wefactional.com``, ``yourdomain.com`` and
+* Use the subdomains ``username.webfactional.com``, ``yourdomain.com`` and
   ``www.yourdomain.com``.
+* Add a new site called ``git`` and map ``git`` to ``/``.
+* Mark it as ``HTTPS``
+* Use the subdomain ``git.username.webfactional.com``
 * Go to [database management](https://my.webfaction.com/database/create)
 * Create your database (``username_yourproject``) and note down the password.
   You should create a PostgreSQL database as the latest MySQL has problems with

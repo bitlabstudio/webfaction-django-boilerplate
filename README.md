@@ -142,13 +142,25 @@ do a first deployment, which will run ``syncdb``, ``migrate``, ``collectstatic``
     # The task will only halt once and ask for your git password
     fab install_everything
 
+This will run for up to 20 minutes or so. Afterwards you will have a ready to go local
+project that is also deployed on your Webfaction server.
+
 We even went one step further and provided initial fixtures which should give
-you everything you need for a normal website:
+you everything you need for a normal website. In order to install the fixtures
+locally do the following. If you just want to create your own CMS pages and
+start creating your templates, you can skp this step:
 
     cd website/webapps/django/project
     fab rebuild
     ./manage.py runserver
+    
+The idea behind this rebuild command is that a new developer should never be forced
+to download the lates database from production in order to get started. Instead
+we should always provide fixtures that setup enough test data so that a new developer
+can run ``fab rebuild`` and as a result he will see a fresh database that has all
+needed CMS pages and apphooks and lorem ipsum blog posts and other test data inside.
 
+Your development workflows might differ, so you can just ignore this command.
 
 ## Webfaction server
 

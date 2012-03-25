@@ -99,7 +99,7 @@ testing, you should uncomment a few lines in the first ``requirements.txt``:
     pip install -r requirements.txt --upgrade
     pip install -r website/webapps/django/project/requirements.txt --upgrade
 
-Next you need to copy ``fab_settings.py.sample`` and modify it for your needs.
+Next you need to copy ``fabric_settings.py.sample`` and modify it for your needs.
 Basically you just need to modify your webfaction username and your desired
 project name. Usually both will be the same unless you are hosting several
 Django apps on the same Webfaction server. It also holds some values that will

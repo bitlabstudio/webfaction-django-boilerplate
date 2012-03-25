@@ -107,9 +107,10 @@ be inserted into your server's ``local_settings.py``.
 
     cp fabric_settings.py.sample fabric_settings.py
 
-You might want to create a ``.ssh`` directory on your server with permissions
-setup properly. Once you have done that, copy your public key, ssh into your
-server and append your key to ``.ssh/authorized_keys``:
+You might want to create a ``.ssh`` directory on your Webfaction server with 
+permissions setup properly. Once you have done that, copy your public key, ssh 
+into your Webfaction server and append your key to ``.ssh/authorized_keys``. If
+you have already done sone, you can skip this step:
 
     fab run_create_ssh_dir
     

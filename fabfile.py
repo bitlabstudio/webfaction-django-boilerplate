@@ -314,7 +314,7 @@ def run_install_virtualenv():
 
 
 def run_loaddata_auth():
-    with cd('$HOME/webapps/{0}/myproject/'.format(
+    with cd('$HOME/webapps/{0}/project/'.format(
             fab_settings.DJANGO_APP_NAME)):
 
         run('workon {0} && ./manage.py loaddata bootstrap_auth.json'.format(

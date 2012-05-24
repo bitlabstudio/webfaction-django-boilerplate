@@ -5,12 +5,11 @@
 ipython
 ipdb
 fabric
-#-e git+git://github.com/fabric/fabric.git#egg=fabric
 flake8
 coverage
 django-coverage
 django-extensions
--e git+https://github.com/Fandekasp/milkman#egg=milkman
+factory_boy
 
-# comment out this line if you are on a mac
--e git+https://github.com/peterbe/python-gorun.git#egg=gorun
+# use this if you are on Ubuntu
+# -e git+https://github.com/peterbe/python-gorun.git#egg=gorun

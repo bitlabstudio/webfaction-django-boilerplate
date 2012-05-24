@@ -3,6 +3,9 @@
 from settings import *
 
 
+INSTALLED_APPS.append('integration_tests')
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

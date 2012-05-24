@@ -20,17 +20,7 @@ def run_deploy_website():
 
 
 def run_download_db():
-    db_engine = DATABASES['default']['ENGINE']
-    db_name = DATABASES['default']['NAME']
-    if 'sqlite' in db_engine:
-        print('Download of sqlite database is not supported.')
-    db_type = None
-    if 'postgre' in db_engine:
-        db_type = 'psql'
-    if 'mysql' in db_engine:
-        db_type = 'mysql'
-    local('scp {2}@{2}.webfactional.com:/home/{2}/{0}_{1}.sql .'.format(
-        db_name, db_type, fab_settings.ENV_USER))
+    local('scp {0}@{0}.webfactional.com:/home/{0}/pg_dump.gz .'.format(env.user))  # NOQA
 
 
 def run_download_media():
@@ -40,6 +30,13 @@ def run_download_media():
             fab_settings.PROJECT_NAME))
     local('scp {0}@{0}.webfactional.com:/home/{0}/{1}_media.tar.bz2'
           ' ../../'.format(fab_settings.ENV_USER, fab_settings.PROJECT_NAME))
+
+
+def run_dump_db():
+    """Dumps the latest database."""
+    run(('pg_dump -c -U {0}_{1} {0}_{1} | gzip -c -9 >'
+         ' $HOME/pg_dump.gz').format(
+            fab_settings.ENV_USER, fab_settings.PROJECT_NAME))
 
 
 def run_restart_apache():

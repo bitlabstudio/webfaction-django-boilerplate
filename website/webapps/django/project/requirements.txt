@@ -7,6 +7,7 @@ django-missing
 django-rosetta
 -e hg+https://bitbucket.org/ubernostrum/django-registration#egg=registration
 -e git://github.com/bitmazk/django-registration-email.git#egg=registration_email
+-e git+https://github.com/jtauber/django-mailer.git#egg=mailer
 
 
 # ============================

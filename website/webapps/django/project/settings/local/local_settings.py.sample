@@ -9,7 +9,7 @@ as you like.
 import os
 
 from settings.base_settings import PROJECT_ROOT
-from settings.installed_apps import INSTALLED_APPS as DEFAULT_INSTALLED_APPS
+from settings.installed_apps import INSTALLED_APPS as DEFAULT_INSTALLED_APPS  # NOQA
 
 
 DEBUG = True
@@ -36,25 +36,49 @@ DATABASES = {
 }
 
 
-# ===============
-# Email settings
-# ===============
-FROM_EMAIL = "info@example.com"
-DEFAULT_FROM_EMAIL = FROM_EMAIL
-SERVER_EMAIL = FROM_EMAIL
-EMAIL_SUBJECT_PREFIX = '[yourproject] '
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# ======================
+# General Email Settings
+# ======================
+ADMINS = (
+    ('Yourname', 'yourname@gmail.com'),
+)
+MANAGERS = ADMINS
+EMAIL_BACKEND = 'mailer.backend.DbBackend'
+
+
+# ===============================
+# Loca Development Email Settings
+# ===============================
+MAILER_EMAIL_BACKEND = 'test_email_backend.EmailBackend'
+TEST_EMAIL_BACKEND_RECEPIENTS = ADMINS
+
+FROM_EMAIL = ADMINS[0][1]
+EMAIL_SUBJECT_PREFIX = '[dev yourproject] '
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = FROM_EMAIL
+EMAIL_HOST_PASSWORD = "yourgmailpw"
+EMAIL_PORT = 587
+
+
+# ==========================
+# Webfaction Server Settings
+# ==========================
+#FROM_EMAIL = "info@example.com"
+#EMAIL_SUBJECT_PREFIX = '[yourproject] '
+
 #EMAIL_HOST = 'smtp.webfaction.com'
 #EMAIL_HOST_USER = ""
 #EMAIL_HOST_PASSWORD = ""
-#EMAIL_USE_TLS = True
 #EMAIL_PORT = 25
-ADMINS = (
-    ('yourname', 'info@example.com'),
-)
-MANAGERS = ADMINS
 
+
+# ===========================
+# More general email settings
+# ===========================
+DEFAULT_FROM_EMAIL = FROM_EMAIL
+SERVER_EMAIL = FROM_EMAIL
+EMAIL_USE_TLS = True
 
 # ==========================
 # Additional installed apps
@@ -67,8 +91,8 @@ INSTALLED_APPS = DEFAULT_INSTALLED_APPS + [
 # ======================
 # Static files settings
 # ======================
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'MEDIA_APP_NAME')
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'STATIC_APP_NAME')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../..',  'MEDIA_APP_NAME')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '../..', 'STATIC_APP_NAME')
 
 
 # ===========

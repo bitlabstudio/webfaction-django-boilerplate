@@ -44,4 +44,4 @@ ADMIN_URL = 'XXXX'
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 DJANGO_PROJECT_ROOT = os.path.realpath(os.path.join(
-    PROJECT_ROOT, 'website', 'webapps', 'django', 'project'))
+    PROJECT_ROOT, 'website', 'webapps', 'django', 'myproject'))

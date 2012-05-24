@@ -62,7 +62,7 @@ def first_deployment():
     run_install_scripts()
     run_install_pgpass()
     run_install_crontab()
-    run_prepare_wsgi()
+    run_delete_django()
     run_install_requirements()
     run_deploy_website(with_manage_py=False)
     run_prepare_local_settings()
@@ -95,7 +95,8 @@ def local_link_repo_with_remote_repo():
         with settings(warn_only=True):
             local('git remote rm origin')
         local('git remote add origin'
-                ' https://{0}@git.{0}.webfactional.com/{1}'.format(
+              ' {0}@{0}.webfactional.com:'
+              '/home/{0}/webapps/git/repos/{1}'.format(
                     fab_settings.ENV_USER, fab_settings.GIT_REPO_NAME))
         local('git push -u origin master')
 
@@ -123,6 +124,7 @@ def local_create_new_repo():
 
 def local_init_django_project():
     with lcd(fab_settings.DJANGO_PROJECT_ROOT):
+        # prepare local_settings.py
         local('cp settings/local/local_settings.py.sample'
                 ' settings/local/local_settings.py')
         local("sed -i -r -e 's/MEDIA_APP_NAME/media/g'"
@@ -130,13 +132,20 @@ def local_init_django_project():
         local("sed -i -r -e 's/STATIC_APP_NAME/static/g'"
               " settings/local/local_settings.py")
         local('cp fabfile/fab_settings.py.sample'
-                ' fabfile/fab_settings.py')
-        local('cp settings/local/gorun_settings.py.sample gorun_settings.py')
+              ' fabfile/fab_settings.py')
+
+        # prepare gorun_settings.py
+        local('cp settings/local/gorun_settings.py.sample'
+              ' gorun_settings.py')
+
+        # prepare urls.py
+        local("sed -i -r -e 's/XXXX/{0}/g' urls.py".format(
+            fab_settings.ADMIN_URL))
+
+        # initialize local Django project
         local('python manage.py syncdb --all --noinput')
         local('python manage.py migrate --fake')
         local('python manage.py loaddata bootstrap_auth.json')
-        local("sed -i -r -e 's/XXXX/{0}/g' urls.py".format(
-            fab_settings.ADMIN_URL))
 
 def local_initial_commit():
     with lcd(fab_settings.PROJECT_ROOT):
@@ -305,7 +314,9 @@ def run_install_virtualenv():
 
 
 def run_loaddata_auth():
-    with cd('$HOME/webapps/{0}/project/'.format(fab_settings.DJANGO_APP_NAME)):
+    with cd('$HOME/webapps/{0}/myproject/'.format(
+            fab_settings.DJANGO_APP_NAME)):
+
         run('workon {0} && ./manage.py loaddata bootstrap_auth.json'.format(
             fab_settings.VENV_NAME))
 
@@ -323,19 +334,35 @@ def run_prepare_local_settings():
             fab_settings.DB_PASSWORD))
         sed('local_settings.py', 'yourproject', '{0}'.format(
             PROJECT_NAME))
+
+        sed('local_settings.py', '##EMAIL_BACKEND', 'EMAIL_BACKEND')
+
         sed('local_settings.py', 'FROM_EMAIL = "info@example.com"',
             'FROM_EMAIL = "{0}"'.format(fab_settings.EMAIL_DEFAULT_FROM_EMAIL))
-        sed('local_settings.py', 'EMAIL_BACKEND', '#EMAIL_BACKEND')
-        sed('local_settings.py', '##EMAIL_BACKEND', 'EMAIL_BACKEND')
-        sed('local_settings.py', '#EMAIL_HOST', 'EMAIL_HOST')
-        sed('local_settings.py', '#EMAIL_HOST_USER', 'EMAIL_HOST_USER')
-        sed('local_settings.py', 'EMAIL_HOST_USER = ""',
+        sed('local_settings.py', 'MAILER_EMAIL_BACKEND', '#MAILER_EMAIL_BACKEND')  # NOQA
+        sed('local_settings.py', 'TEST_EMAIL_BACKEND_RECEPIENTS', '#TEST_EMAIL_BACKEND_RECEPIENTS')  # NOQA
+
+        sed('local_settings.py', 'FROM_EMAIL =', '#FROM_EMAIL =')
+        sed('local_settings.py', '##FROM_EMAIL', 'FROM_EMAIL')
+        sed('local_settings.py', 'DEFAULT_#FROM_EMAIL', 'DEFAULT_FROM_EMAIL')
+
+        sed('local_settings.py', 'EMAIL_SUBJECT_PREFIX', '#EMAIL_SUBJECT_PREFIX')  # NOQA
+        sed('local_settings.py', '##EMAIL_SUBJECT_PREFIX', 'EMAIL_SUBJECT_PREFIX')  # NOQA
+
+        sed('local_settings.py', 'EMAIL_HOST =', '#EMAIL_HOST =')
+        sed('local_settings.py', '##EMAIL_HOST', 'EMAIL_HOST')
+
+        sed('local_settings.py', 'EMAIL_HOST_USER = FROM_EMAIL', '#EMAIL_HOST_USER = FROM_EMAIL')  # NOQA
+        sed('local_settings.py', '#EMAIL_HOST_USER = ""',
             'EMAIL_HOST_USER = "{0}"'.format(fab_settings.EMAIL_INBOX))
-        sed('local_settings.py', '#EMAIL_HOST_PASSWORD', 'EMAIL_HOST_PASSWORD')
-        sed('local_settings.py', 'EMAIL_HOST_PASSWORD = ""',
+
+        sed('local_settings.py', 'EMAIL_HOST_PASSWORD', '#EMAIL_HOST_PASSWORD')
+        sed('local_settings.py', '##EMAIL_HOST_PASSWORD = ""',
             'EMAIL_HOST_PASSWORD = "{0}"'.format(fab_settings.EMAIL_PASSWORD))
-        sed('local_settings.py', '#EMAIL_USE_TLS', 'EMAIL_USE_TLS')
-        sed('local_settings.py', '#EMAIL_PORT', 'EMAIL_PORT')
+
+        sed('local_settings.py', 'EMAIL_PORT', '#EMAIL_PORT')
+        sed('local_settings.py', '##EMAIL_PORT', 'EMAIL_PORT')
+
         sed('local_settings.py', 'MEDIA_APP_NAME', fab_settings.MEDIA_APP_NAME)
         sed('local_settings.py', 'STATIC_APP_NAME',
             fab_settings.STATIC_APP_NAME)
@@ -344,16 +371,8 @@ def run_prepare_local_settings():
         run('rm -f *.bak')
 
 
-def run_prepare_wsgi():
+def run_delete_django():
     with cd('$HOME/webapps/{0}/lib/python2.7/'.format(
         fab_settings.DJANGO_APP_NAME)):
         run('rm -rf django')
         run('rm -rf Django*')
-    with cd('$HOME/webapps/{0}'.format(fab_settings.DJANGO_APP_NAME)):
-        run('rm -rf myproject')
-        run('cp $HOME/src/{0}/scripts/myproject.wsgi .'.format(
-            PROJECT_NAME))
-        sed('myproject.wsgi', 'ENV_USER', fab_settings.ENV_USER)
-        sed('myproject.wsgi', 'VENV_NAME', fab_settings.VENV_NAME)
-        sed('myproject.wsgi', 'DJANGO_APP_NAME', fab_settings.DJANGO_APP_NAME)
-        run('rm -f *.bak')

@@ -220,7 +220,11 @@ def run_delete_previous_attempts():
         run('touch .pgpass')
         run("sed '/{0}/d' .pgpass > .pgpass_tmp".format(fab_settings.DB_NAME))
         run('mv .pgpass_tmp .pgpass')
-    # TODO remove crontab jobs
+    run('crontab -l > crontab_bak')
+    run("sed '/{0}.sh/d' crontab_bak > crontab_tmp".format(
+        fab_settings.PROJECT_NAME))
+    run('crontab crontab_tmp')
+    run('rm crontab_tmp')
 
 
 def run_deploy_website(with_manage_py=True):

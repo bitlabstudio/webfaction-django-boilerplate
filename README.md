@@ -1,3 +1,8 @@
+Important
+=========
+
+This repository has been discontinued and is no longer maintained.
+
 # Webfaction Django Boilerplate
 
 ## Use it, if you know what you are doing
